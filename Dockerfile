@@ -5,11 +5,11 @@ FROM cyb3rward0g/jupyter-base:0.0.5
 LABEL maintainer="Roberto Rodriguez @Cyb3rWard0g"
 LABEL description="BloodHound Notebook Project."
 
-ENV DEBIAN_FRONTEND noninteractive \
-  NEO4J_VERSION 4.0.6 \
-  NEO4J_TARBALL neo4j-community-${NEO4J_VERSION}-unix.tar.gz \
-  NEO4J_HOME /var/lib/neo4j \
-  NEO4J_URI http://dist.neo4j.org/${NEO4J_TARBALL}
+ENV DEBIAN_FRONTEND noninteractive
+ENV NEO4J_VERSION 4.0.6
+ENV NEO4J_TARBALL neo4j-community-${NEO4J_VERSION}-unix.tar.gz
+ENV NEO4J_HOME /var/lib/neo4j
+ENV NEO4J_URI http://dist.neo4j.org/${NEO4J_TARBALL}
 
 USER root
 
