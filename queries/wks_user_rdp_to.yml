@@ -1,0 +1,11 @@
+title: Workstations a user can RDP into
+id: B47162DF-10EF-4964-A544-8DBDFB472D93
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find workstations a user can RDP into.
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH p=(g:Group)-[:CanRDP]->(c:Computer)
+  WHERE g.objectid ENDS WITH '-513' AND NOT c.operatingsystem CONTAINS 'Server'
+  RETURN p

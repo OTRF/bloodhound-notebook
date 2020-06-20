@@ -1,0 +1,14 @@
+title: Shortest Path to DA Groups from Domain Users Groups
+id: D076E3F5-8298-4333-A1C2-378E1DBBA026
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Shortest paths to Domain Admins group from the Domain Users group
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (g:Group)
+  WHERE g.name =~ 'DOMAIN USERS@.*'
+  MATCH (g1:Group)
+  WHERE g1.name =~ 'DOMAIN ADMINS@.*'
+  OPTIONAL MATCH p=shortestPath((g)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]->(g1))
+  RETURN p

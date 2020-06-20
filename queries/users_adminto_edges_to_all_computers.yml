@@ -1,0 +1,11 @@
+title: All Domain Users AdminTo Edges Against all Computers
+id: 1ED5133C-2AE8-4303-966E-01259EAF6383
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find only the AdminTo privileges (edges) of the domain users against the domain computers
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]->(g1:Group)))
+  MATCH p2=(u1)-[:AdminTo*1..]->(c:Computer)
+  RETURN p2

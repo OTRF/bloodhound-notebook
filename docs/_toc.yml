@@ -1,0 +1,9 @@
+- file: intro
+- header: Cypher Community
+- file: notebooks/cypher/queries_table
+- file: notebooks/cypher/queries_notebook
+- header: Other Notebooks
+- file: notebooks/others/intro
+  sections:
+    - file: notebooks/others/explore_kerberoastable_users
+    - file: notebooks/others/altair_bloodhound_results

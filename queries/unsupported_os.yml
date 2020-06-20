@@ -1,0 +1,10 @@
+title: Unsupported OSs
+id: DF596CDB-BD3D-46A8-909E-46D043F5C747
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find unsupported OSs
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (H:Computer) WHERE H.operatingsystem =~ '.*(2000|2003|2008|xp|vista|7|me)*.'
+  RETURN H.name

@@ -1,0 +1,11 @@
+title: Unprivileged Users with Rights to Add Members to Groups
+id: 844A7CE3-2C0F-498C-8D75-265E712B033F
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find if unprivileged users have rights to add members into groups
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:User {admincount:False})
+  MATCH p=allShortestPaths((n)-[r:AddMember*1..]->(m:Group))
+  RETURN p

@@ -1,0 +1,11 @@
+title: Unprivileged Users ACL abusing Computers
+id: 7A421FC2-C467-44C6-ADC7-460C9FC2565C
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find interesting edges related to “ACL Abuse” that unprivileged users have against computers
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:User {admincount:False})
+  MATCH p=allShortestPaths((n)-[r:AllExtendedRights|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|AdminTo|CanRDP|ExecuteDCOM|ForceChangePassword*1..]->(m:Computer))
+  RETURN p

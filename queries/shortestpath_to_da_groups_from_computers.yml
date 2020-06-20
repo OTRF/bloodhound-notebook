@@ -1,0 +1,10 @@
+title: Shortest Path to DA Groups from Computers
+id: ED3A0F4E-8EC0-4369-B3DC-480FB9C4A7E6
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c), Roberto Rodriguez (@Cyb3rWard0g)
+description: Shortest paths to Domain Admins group from computers
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:Computer),(m:Group {name:'DOMAIN ADMINS@CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]->(m))
+  RETURN p

@@ -1,0 +1,14 @@
+title: All Logged In Admins
+id: B77E1462-D8B2-413A-88BB-4CBADF567764
+creation_date: 2020/06/20
+author: Walter.Legowski (@SadProcessor)
+description: List of all logged in administrators
+references:
+  - https://github.com/SadProcessor/Cheats/blob/master/DogWhispererV2.md#ii--built-in
+query: |-
+  MATCH 
+  p=(a:Computer)-[r:HasSession]->(b:User) 
+  WITH a,b,r 
+  MATCH 
+  p=shortestPath((b)-[:AdminTo|MemberOf*1..]->(a)) 
+  RETURN b,a,r

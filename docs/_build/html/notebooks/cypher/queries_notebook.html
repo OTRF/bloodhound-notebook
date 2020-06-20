@@ -1,0 +1,1531 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Queries Notebook &#8212; BloodHound Notebook Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/mystnb.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../../_static/thebelab.js"></script>
+    <link rel="canonical" href="https://bloodhoundnotebook.com/notebooks/cypher/queries_notebook.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Other Notebooks" href="../others/intro.html" />
+    <link rel="prev" title="Summary Table" href="queries_table.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://bloodhoundnotebook.com/notebooks/cypher/queries_notebook.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Queries Notebook" />
+<meta property="og:description" content="Queries Notebook  Author: Roberto Rodriguez (@Cyb3rWard0g)  Project: Infosec Jupyter Book  Public Organization: Open Threat Research  License: Creative Commons " />
+<meta property="og:image"       content="https://bloodhoundnotebook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">BloodHound Notebook Project</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Cypher Community</p>
+</li>
+  <li class="">
+    <a href="queries_table.html">Summary Table</a>
+  </li>
+  <li class="active">
+    <a href="">Queries Notebook</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Other Notebooks</p>
+</li>
+  <li class="">
+    <a href="../others/intro.html">Other Notebooks</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../../_sources/notebooks/cypher/queries_notebook.ipynb.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/OTRF/bloodhound-notebook/edit/master/docs/notebooks/cypher/queries_notebook.ipynb"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+            <div class="dropdown-buttons">
+                
+                <a class="binder-button" href="https://mybinder.org/v2/gh/OTRF/bloodhound-notebook/master?urlpath=tree/docs/notebooks/cypher/queries_notebook.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="../../_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                
+                
+                <button type="button" class="btn btn-secondary topbarbtn thebelab-launch-button" onclick="initThebelab()" title="Launch Thebelab" data-toggle="tooltip" data-placement="left"><i class="fas fa-rocket"></i><span style="margin-left: .4em;">ThebeLab</span></button>
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#import-libraries" class="nav-link">Import Libraries</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#initialize-graph-variable" class="nav-link">Initialize Graph Variable</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#community-cypher-queries" class="nav-link">Community Cypher Queries</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#servers-a-user-can-rdp-into" class="nav-link">Servers a user can RDP into</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#view-all-gpos-that-contain-a-keyword" class="nav-link">View all GPOs that contain a keyword</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#domain-users-groups-with-interesting-aces" class="nav-link">Domain Users Groups with Interesting ACEs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#top-10-computers-with-most-admins" class="nav-link">Top 10 Computers with Most Admins</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#map-domain-trusts" class="nav-link">Map Domain Trusts</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#high-value-target-group" class="nav-link">High Value Target Group</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#shortest-path-to-da-groups-from-domain-users-groups" class="nav-link">Shortest Path to DA Groups from Domain Users Groups</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#asp-req-roastable-users" class="nav-link">ASP-REQ Roastable Users</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#unprivileged-users-with-rights-to-add-members-to-groups" class="nav-link">Unprivileged Users with Rights to Add Members to Groups</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#users-that-logged-in-ithin-threshold" class="nav-link">Users that Logged in ithin Threshold</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#shortest-path-to-da-groups-from-non-privileged-domain-users" class="nav-link">Shortest Path to DA Groups from Non-Privileged Domain Users</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#unsupported-oss" class="nav-link">Unsupported OSs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#top-10-users-with-most-sessions" class="nav-link">Top 10 Users with Most Sessions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#users-with-passwords-last-set-withing-threshold" class="nav-link">Users with Passwords Last Set withing Threshold</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#shortest-path-to-da-groups-from-computers" class="nav-link">Shortest Path to DA Groups from Computers</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#all-domain-users-canrdp-edges-against-all-computers" class="nav-link">All Domain Users CanRDP Edges Against all Computers</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#all-domain-users-adminto-edges-against-all-computers" class="nav-link">All Domain Users AdminTo Edges Against all Computers</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#active-users-sessions-in-all-domain-computers" class="nav-link">Active Users Sessions in all Domain Computers</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#kerberoastable-users-with-a-path-to-da" class="nav-link">Kerberoastable Users with a path to DA</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#kerberoastable-users" class="nav-link">Kerberoastable Users</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#specific-users-edges-to-all-nodes" class="nav-link">Specific Users Edges to All Nodes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#shortest-path-to-da-groups-from-domain-groups" class="nav-link">Shortest Path to DA Groups from Domain Groups</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#shortest-path-to-da-groups-from-non-privileged-domain-groups" class="nav-link">Shortest Path to DA Groups from Non-Privileged Domain Groups</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#shortest-path-to-da-groups-from-computers-excluding-dcs" class="nav-link">Shortest Path to DA Groups from Computers Excluding DCs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#unprivileged-users-edges-to-all-nodes" class="nav-link">Unprivileged Users Edges to All Nodes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#unprivileged-users-acl-abusing-other-users" class="nav-link">Unprivileged Users ACL abusing other Users</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#workstations-a-user-can-rdp-into" class="nav-link">Workstations a user can RDP into</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#all-domain-users-edges-against-all-computers" class="nav-link">All Domain Users Edges Against all Computers</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#all-logged-in-admins" class="nav-link">All Logged In Admins</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#all-domain-admins" class="nav-link">All Domain Admins</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#computers-with-unconstrained-delegation" class="nav-link">Computers with Unconstrained Delegation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#unprivileged-users-acl-abusing-computers" class="nav-link">Unprivileged Users ACL abusing Computers</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#user-sessions-in-a-specific-domain" class="nav-link">User Sessions in a Specific Domain</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#top-10-users-with-most-local-admin-rights" class="nav-link">Top 10 Users with Most Local Admin Rights</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#view-all-gpos" class="nav-link">View all GPOs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#spns-with-keywords" class="nav-link">SPNs with keywords</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#group-with-keywords" class="nav-link">Group with keywords</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#kerberoastable-users-with-passwords-last-set-5-years" class="nav-link">Kerberoastable Users with passwords last set > 5 years</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#da-sessions-not-on-a-certain-group" class="nav-link">DA sessions not on a certain group</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/OTRF/bloodhound-notebook/edit/master/docs/notebooks/cypher/queries_notebook.ipynb">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="queries-notebook">
+<h1>Queries Notebook<a class="headerlink" href="#queries-notebook" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><strong>Author</strong>: Roberto Rodriguez (&#64;Cyb3rWard0g)</p></li>
+<li><p><strong>Project</strong>: Infosec Jupyter Book</p></li>
+<li><p><strong>Public Organization</strong>: <a class="reference external" href="https://github.com/OTRF">Open Threat Research</a></p></li>
+<li><p><strong>License</strong>: <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International</a></p></li>
+</ul>
+<div class="section" id="import-libraries">
+<h2>Import Libraries<a class="headerlink" href="#import-libraries" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">py2neo</span> <span class="kn">import</span> <span class="n">Graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="initialize-graph-variable">
+<h2>Initialize Graph Variable<a class="headerlink" href="#initialize-graph-variable" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="s1">&#39;wardog&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="community-cypher-queries">
+<h2>Community Cypher Queries<a class="headerlink" href="#community-cypher-queries" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="servers-a-user-can-rdp-into">
+<h2>Servers a user can RDP into<a class="headerlink" href="#servers-a-user-can-rdp-into" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find servers a user can RDP into.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p=(g:Group)-[:CanRDP]-&gt;(c:Computer)</span>
+<span class="sd">WHERE  g.objectid ENDS WITH &#39;-513&#39; AND c.operatingsystem CONTAINS &#39;Server&#39;</span>
+<span class="sd">RETURN p   </span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="view-all-gpos-that-contain-a-keyword">
+<h2>View all GPOs that contain a keyword<a class="headerlink" href="#view-all-gpos-that-contain-a-keyword" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> View all GPOs that contain a keyword</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:GPO)</span>
+<span class="sd">WHERE n.name CONTAINS &quot;DOMAIN&quot;</span>
+<span class="sd">RETURN n</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n&#39;: (_10:Base:GPO {distinguishedname: &#39;CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, gpcpath: &#39;\\\\contoso.local\\sysvol\\contoso.local\\Policies\\{6AC1786C-016F-11D2-945F-00C04fB984F9}&#39;, highvalue: false, name: &#39;DEFAULT DOMAIN CONTROLLERS POLICY@CONTOSO.LOCAL&#39;, objectid: &#39;6930F38E-81B5-497F-B18B-E770DF862D89&#39;})},
+ {&#39;n&#39;: (_120:Base:GPO {distinguishedname: &#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, gpcpath: &#39;\\\\contoso.local\\sysvol\\contoso.local\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}&#39;, highvalue: false, name: &#39;DEFAULT DOMAIN POLICY@CONTOSO.LOCAL&#39;, objectid: &#39;5E11EF13-E6EE-4600-9EF7-BD5220CCE469&#39;})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="domain-users-groups-with-interesting-aces">
+<h2>Domain Users Groups with Interesting ACEs<a class="headerlink" href="#domain-users-groups-with-interesting-aces" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c), Roberto Rodriguez (&#64;Cyb3rWard0g)</p>
+<p><strong>Description:</strong> Find interesting privileges/ACEs that have been configured to DOMAIN USERS group</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (m:Group)</span>
+<span class="sd">WHERE m.name =~ &#39;DOMAIN USERS@CONTOSO.LOCAL&#39;</span>
+<span class="sd">MATCH p=(m)-[r:Owns|WriteDacl|GenericAll|WriteOwner|ExecuteDCOM|GenericWrite|AllowedToDelegate|ForceChangePassword]-&gt;(n:Computer)</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="top-10-computers-with-most-admins">
+<h2>Top 10 Computers with Most Admins<a class="headerlink" href="#top-10-computers-with-most-admins" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Walter.Legowski (&#64;SadProcessor)</p>
+<p><strong>Description:</strong> List of top 10 computers with most admins</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User),(m:Computer),(n)-[r:AdminTo]-&gt;(m)</span>
+<span class="sd">WHERE NOT n.name STARTS WITH &#39;ANONYMOUS LOGON&#39; AND NOT n.name=&#39;&#39; WITH m,count(r) as rel_count </span>
+<span class="sd">ORDER BY rel_count desc </span>
+<span class="sd">LIMIT 10 </span>
+<span class="sd">MATCH (m)&lt;-[r:AdminTo]-(n) </span>
+<span class="sd">RETURN n,r,m</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n&#39;: (_11:Base:User {admincount: true, description: &#39;Built-in account for administering the computer/domain&#39;, distinguishedname: &#39;CN=Administrator,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1586793173.0, lastlogontimestamp: 1586738080.0, name: &#39;ADMINISTRATOR@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-500&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1560189819.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false}),
+  &#39;r&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL),
+  &#39;m&#39;: (_41:Base:Computer {distinguishedname: &#39;CN=DC-2016-001,OU=Domain Controllers,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: 1586550660.0, name: &#39;DC-2016-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1000&#39;, operatingsystem: &#39;Windows Server 2016 Standard&#39;, owned: false, pwdlastset: 1586379557.0, serviceprincipalnames: [&#39;Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/ForestDnsZones.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/DomainDnsZones.contoso.local&#39;, &#39;DNS/DC-2016-001.contoso.local&#39;, &#39;GC/DC-2016-001.contoso.local/contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001.contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001&#39;, &#39;RPC/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;HOST/DC-2016-001/CONTOSO&#39;, &#39;HOST/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;HOST/DC-2016-001&#39;, &#39;HOST/DC-2016-001.contoso.local&#39;, &#39;HOST/DC-2016-001.contoso.local/contoso.local&#39;, &#39;E3514235-4B06-11D1-AB04-00C04FC2DCD2/163efdab-a02f-4b72-8de1-b45b21b62341/contoso.local&#39;, &#39;ldap/DC-2016-001/CONTOSO&#39;, &#39;ldap/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;ldap/DC-2016-001&#39;, &#39;ldap/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/contoso.local&#39;], unconstraineddelegation: true})},
+ {&#39;n&#39;: (_98:Base:Group {admincount: true, description: &#39;All domain users&#39;, distinguishedname: &#39;CN=Domain Users,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, highvalue: false, name: &#39;DOMAIN USERS@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-513&#39;}),
+  &#39;r&#39;: (DOMAIN USERS@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL),
+  &#39;m&#39;: (_41:Base:Computer {distinguishedname: &#39;CN=DC-2016-001,OU=Domain Controllers,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: 1586550660.0, name: &#39;DC-2016-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1000&#39;, operatingsystem: &#39;Windows Server 2016 Standard&#39;, owned: false, pwdlastset: 1586379557.0, serviceprincipalnames: [&#39;Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/ForestDnsZones.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/DomainDnsZones.contoso.local&#39;, &#39;DNS/DC-2016-001.contoso.local&#39;, &#39;GC/DC-2016-001.contoso.local/contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001.contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001&#39;, &#39;RPC/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;HOST/DC-2016-001/CONTOSO&#39;, &#39;HOST/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;HOST/DC-2016-001&#39;, &#39;HOST/DC-2016-001.contoso.local&#39;, &#39;HOST/DC-2016-001.contoso.local/contoso.local&#39;, &#39;E3514235-4B06-11D1-AB04-00C04FC2DCD2/163efdab-a02f-4b72-8de1-b45b21b62341/contoso.local&#39;, &#39;ldap/DC-2016-001/CONTOSO&#39;, &#39;ldap/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;ldap/DC-2016-001&#39;, &#39;ldap/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/contoso.local&#39;], unconstraineddelegation: true})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="map-domain-trusts">
+<h2>Map Domain Trusts<a class="headerlink" href="#map-domain-trusts" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Walter.Legowski (&#64;SadProcessor)</p>
+<p><strong>Description:</strong> Map domain trusts</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:Domain) MATCH p=(n)-[r]-() RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(RESEARCH AND DEVELOPMENT@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(ACCOUNTING@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GpLink {enforced: false, isacl: false}]-(DEFAULT DOMAIN POLICY@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(CONTOSO USERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(SQLUSERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(DOMAIN CONTROLLERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(PCI ENCLAVE@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(OU-CONTROL@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(WIN-2016-001.CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(DESKTOP-4AMBQF0.CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(WIN10-001.CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(KRBTGT@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(DEFAULTACCOUNT@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(GUEST@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(GMSA-SQL01@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)-[:Contains {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GetChangesAll {isacl: true, isinherited: false}]-(DOMAIN CONTROLLERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GetChangesAll {isacl: true, isinherited: false}]-(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GetChanges {isacl: true, isinherited: false}]-(ENTERPRISE DOMAIN CONTROLLERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GetChanges {isacl: true, isinherited: false}]-(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GetChanges {isacl: true, isinherited: false}]-(ENTERPRISE READ-ONLY DOMAIN CONTROLLERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:GenericAll {isacl: true, isinherited: false}]-(ENTERPRISE ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:AllExtendedRights {isacl: true, isinherited: false}]-(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:AllExtendedRights {isacl: true, isinherited: false}]-(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:WriteOwner {isacl: true, isinherited: false}]-(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:WriteOwner {isacl: true, isinherited: false}]-(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:WriteDacl {isacl: true, isinherited: false}]-(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:WriteDacl {isacl: true, isinherited: false}]-(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (CONTOSO.LOCAL)&lt;-[:Owns {isacl: true, isinherited: false}]-(ADMINISTRATORS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="high-value-target-group">
+<h2>High Value Target Group<a class="headerlink" href="#high-value-target-group" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Show all high value target group</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p=(n:User)-[r:MemberOf*1..]-&gt;(m:Group {highvalue:true})</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL01@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (DAVID.MCGUIRE@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JPRAGER@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL2016@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (DAVID.MCGUIRE@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (BOB.ACCOUNTING@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (DEFAULTACCOUNT@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL2014@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (DPOLOJAC@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFF.DIMMOCK@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (KRBTGT@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SVC_SHARPHOUND@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SAMECN1@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SAMECN2@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (LPAINE@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (GPOADMIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL2017@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (DHOHNSTEIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JBUI@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (MMERRILL@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (BADAMS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (BSCULLION@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (BREITZ@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JGOODGION@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (WSCHROEDER@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (LCHRISTENSEN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JATKINSON@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(GROUP POLICY CREATOR OWNERS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="shortest-path-to-da-groups-from-domain-users-groups">
+<h2>Shortest Path to DA Groups from Domain Users Groups<a class="headerlink" href="#shortest-path-to-da-groups-from-domain-users-groups" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Shortest paths to Domain Admins group from the Domain Users group</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (g:Group)</span>
+<span class="sd">WHERE g.name =~ &#39;DOMAIN USERS@.*&#39;</span>
+<span class="sd">MATCH (g1:Group)</span>
+<span class="sd">WHERE g1.name =~ &#39;DOMAIN ADMINS@.*&#39;</span>
+<span class="sd">OPTIONAL MATCH p=shortestPath((g)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]-&gt;(g1))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="asp-req-roastable-users">
+<h2>ASP-REQ Roastable Users<a class="headerlink" href="#asp-req-roastable-users" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find user that doesn’t require kerberos pre-authentication (aka AS-REP Roasting)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (u:User {dontreqpreauth: true})</span>
+<span class="sd">RETURN u</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unprivileged-users-with-rights-to-add-members-to-groups">
+<h2>Unprivileged Users with Rights to Add Members to Groups<a class="headerlink" href="#unprivileged-users-with-rights-to-add-members-to-groups" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find if unprivileged users have rights to add members into groups</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User {admincount:False})</span>
+<span class="sd">MATCH p=allShortestPaths((n)-[r:AddMember*1..]-&gt;(m:Group))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="users-that-logged-in-ithin-threshold">
+<h2>Users that Logged in ithin Threshold<a class="headerlink" href="#users-that-logged-in-ithin-threshold" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find users that logged in within the last 90 days. Change 90 to whatever threshold you want.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (u:User)</span>
+<span class="sd">WHERE u.lastlogon &lt; (datetime().epochseconds - (90 * 86400)) and NOT u.lastlogon IN [-1.0, 0.0]</span>
+<span class="sd">RETURN u.name</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;u.name&#39;: &#39;JEFFMCJUNKIN@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL2014@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;JBUI@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;BOB.ACCOUNTING@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;DPOLOJAC@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;DHOHNSTEIN@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;LPAINE@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL2016@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL2017@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL01@CONTOSO.LOCAL&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="shortest-path-to-da-groups-from-non-privileged-domain-users">
+<h2>Shortest Path to DA Groups from Non-Privileged Domain Users<a class="headerlink" href="#shortest-path-to-da-groups-from-non-privileged-domain-users" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Shortest paths to Domain Admins group from non privileged users (AdminCount=false)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User {admincount:false}),(m:Group {name:&#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unsupported-oss">
+<h2>Unsupported OSs<a class="headerlink" href="#unsupported-oss" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find unsupported OSs</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (H:Computer) WHERE H.operatingsystem =~ &#39;.*(2000|2003|2008|xp|vista|7|me)*.&#39;</span>
+<span class="sd">RETURN H.name</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;H.name&#39;: &#39;PCI-SERVER-001.CONTOSO.LOCAL&#39;},
+ {&#39;H.name&#39;: &#39;DC-2016-001.CONTOSO.LOCAL&#39;},
+ {&#39;H.name&#39;: &#39;WIN-2016-001.CONTOSO.LOCAL&#39;},
+ {&#39;H.name&#39;: &#39;DESKTOP-4AMBQF0.CONTOSO.LOCAL&#39;},
+ {&#39;H.name&#39;: &#39;WIN10-001.CONTOSO.LOCAL&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="top-10-users-with-most-sessions">
+<h2>Top 10 Users with Most Sessions<a class="headerlink" href="#top-10-users-with-most-sessions" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Walter.Legowski (&#64;SadProcessor)</p>
+<p><strong>Description:</strong> List Top 10 Users with Most Sessions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User),(m:Computer),(n)&lt;-[r:HasSession]-(m) </span>
+<span class="sd">WHERE NOT n.name STARTS WITH &#39;ANONYMOUS LOGON&#39; </span>
+<span class="sd">AND NOT n.name=&#39;&#39; WITH n, </span>
+<span class="sd">count(r) as rel_count </span>
+<span class="sd">order by rel_count desc </span>
+<span class="sd">LIMIT 10 </span>
+<span class="sd">MATCH (m)-[r:HasSession]-&gt;(n) </span>
+<span class="sd">RETURN n,r,m</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n&#39;: (_165:Base:User {admincount: true, displayname: &#39;Andrew Chiles&#39;, distinguishedname: &#39;CN=Andrew Chiles,OU=PCI Admins,OU=PCI Enclave,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: -1.0, lastlogontimestamp: -1.0, name: &#39;ACHILES@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-125934&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1586797965.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false}),
+  &#39;r&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL),
+  &#39;m&#39;: (_175:Base:Computer {distinguishedname: &#39;CN=RD-WIN10-001,OU=R&amp;D Computers,OU=Research and Development,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: -1.0, name: &#39;RD-WIN10-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-125944&#39;, owned: false, pwdlastset: 1586798704.0, serviceprincipalnames: [], unconstraineddelegation: false})},
+ {&#39;n&#39;: (_11:Base:User {admincount: true, description: &#39;Built-in account for administering the computer/domain&#39;, distinguishedname: &#39;CN=Administrator,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1586793173.0, lastlogontimestamp: 1586738080.0, name: &#39;ADMINISTRATOR@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-500&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1560189819.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false}),
+  &#39;r&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL),
+  &#39;m&#39;: (_40:Base:Computer {distinguishedname: &#39;CN=PCI-SERVER-001,OU=PCI Computers,OU=PCI Enclave,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: 1586551062.0, name: &#39;PCI-SERVER-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1617&#39;, operatingsystem: &#39;Windows Server 2016 Standard&#39;, owned: false, pwdlastset: 1585683416.0, serviceprincipalnames: [&#39;WSMAN/PCI-SERVER-001&#39;, &#39;WSMAN/PCI-SERVER-001.contoso.local&#39;, &#39;RestrictedKrbHost/PCI-SERVER-001&#39;, &#39;HOST/PCI-SERVER-001&#39;, &#39;RestrictedKrbHost/PCI-SERVER-001.contoso.local&#39;, &#39;HOST/PCI-SERVER-001.contoso.local&#39;], unconstraineddelegation: false})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="users-with-passwords-last-set-withing-threshold">
+<h2>Users with Passwords Last Set withing Threshold<a class="headerlink" href="#users-with-passwords-last-set-withing-threshold" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find users with passwords last set thin the last 90 days. Change 90 to whatever threshold you want.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (u:User)</span>
+<span class="sd">WHERE u.lastlogon &lt; (datetime().epochseconds - (90 * 86400)) and NOT u.lastlogon IN [-1.0, 0.0]</span>
+<span class="sd">RETURN u.name</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;u.name&#39;: &#39;JEFFMCJUNKIN@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL2014@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;JBUI@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;BOB.ACCOUNTING@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;DPOLOJAC@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;DHOHNSTEIN@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;LPAINE@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL2016@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL2017@CONTOSO.LOCAL&#39;},
+ {&#39;u.name&#39;: &#39;SQL01@CONTOSO.LOCAL&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="shortest-path-to-da-groups-from-computers">
+<h2>Shortest Path to DA Groups from Computers<a class="headerlink" href="#shortest-path-to-da-groups-from-computers" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c), Roberto Rodriguez (&#64;Cyb3rWard0g)</p>
+<p><strong>Description:</strong> Shortest paths to Domain Admins group from computers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:Computer),(m:Group {name:&#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="all-domain-users-canrdp-edges-against-all-computers">
+<h2>All Domain Users CanRDP Edges Against all Computers<a class="headerlink" href="#all-domain-users-canrdp-edges-against-all-computers" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find only the CanRDP privileges (edges) of the domain users against the domain computers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span>
+<span class="sd">MATCH p2=(u1)-[:CanRDP*1..]-&gt;(c:Computer)</span>
+<span class="sd">RETURN p2</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="all-domain-users-adminto-edges-against-all-computers">
+<h2>All Domain Users AdminTo Edges Against all Computers<a class="headerlink" href="#all-domain-users-adminto-edges-against-all-computers" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find only the AdminTo privileges (edges) of the domain users against the domain computers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span>
+<span class="sd">MATCH p2=(u1)-[:AdminTo*1..]-&gt;(c:Computer)</span>
+<span class="sd">RETURN p2</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="active-users-sessions-in-all-domain-computers">
+<h2>Active Users Sessions in all Domain Computers<a class="headerlink" href="#active-users-sessions-in-all-domain-computers" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find the active user sessions on all domain computers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span>
+<span class="sd">MATCH p2=(c:Computer)-[*1]-&gt;(u1)</span>
+<span class="sd">RETURN p2</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="kerberoastable-users-with-a-path-to-da">
+<h2>Kerberoastable Users with a path to DA<a class="headerlink" href="#kerberoastable-users-with-a-path-to-da" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find Kerberoastable Users with a path to DA</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (u:User {hasspn:true})</span>
+<span class="sd">MATCH (g:Group)</span>
+<span class="sd">WHERE g.name CONTAINS &#39;DOMAIN ADMINS&#39; MATCH p = shortestPath( (u)-[*1..]-&gt;(g) )</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (KRBTGT@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL2014@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="kerberoastable-users">
+<h2>Kerberoastable Users<a class="headerlink" href="#kerberoastable-users" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find All Users with an SPN/Find all Kerberoastable Users</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User)WHERE n.hasspn=true</span>
+<span class="sd">RETURN n.name</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n.name&#39;: &#39;KRBTGT@CONTOSO.LOCAL&#39;}, {&#39;n.name&#39;: &#39;SQL2014@CONTOSO.LOCAL&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="specific-users-edges-to-all-nodes">
+<h2>Specific Users Edges to All Nodes<a class="headerlink" href="#specific-users-edges-to-all-nodes" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find all Edges that a specific user has against all the nodes (HasSession is not calculated, as it is an edge that comes from computer to user, not from user to computer)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User)</span>
+<span class="sd">WHERE n.name =~ &#39;JEFFMCJUNKIN@CONTOSO.LOCAL&#39;</span>
+<span class="sd">MATCH (m)</span>
+<span class="sd">WHERE NOT m.name = n.name</span>
+<span class="sd">MATCH p=allShortestPaths((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">LIMIT 10</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: false}]-&gt;(CONTOSO USERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: true}]-&gt;(SQLUSERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteOwner {isacl: true, isinherited: true}]-&gt;(SQLUSERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: true}]-&gt;(PCI ENCLAVE@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteOwner {isacl: true, isinherited: true}]-&gt;(PCI ENCLAVE@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: true}]-&gt;(PCI COMPUTERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteOwner {isacl: true, isinherited: true}]-&gt;(PCI COMPUTERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteOwner {isacl: true, isinherited: true}]-&gt;(DOMAIN CONTROLLERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: true}]-&gt;(DOMAIN CONTROLLERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (JEFFMCJUNKIN@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteOwner {isacl: true, isinherited: true}]-&gt;(OU-CONTROL@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="shortest-path-to-da-groups-from-domain-groups">
+<h2>Shortest Path to DA Groups from Domain Groups<a class="headerlink" href="#shortest-path-to-da-groups-from-domain-groups" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Shortest paths to Domain Admins group from all domain groups</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:Group)</span>
+<span class="sd">WHERE NOT n.name = &#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;</span>
+<span class="sd">MATCH (m:Group {name:&#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (ENTERPRISE ADMINS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (ACCOUNT OPERATORS@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: false}]-&gt;(PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (TERMINAL SERVER LICENSE SERVERS@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: true}]-&gt;(SVC_SHARPHOUND@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="shortest-path-to-da-groups-from-non-privileged-domain-groups">
+<h2>Shortest Path to DA Groups from Non-Privileged Domain Groups<a class="headerlink" href="#shortest-path-to-da-groups-from-non-privileged-domain-groups" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Shortest paths to Domain Admins group from non-privileged groups (AdminCount=false)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:Group {admincount:false}),(m:Group {name:&#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (TERMINAL SERVER LICENSE SERVERS@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: true}]-&gt;(SVC_SHARPHOUND@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ADMINISTRATORS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="shortest-path-to-da-groups-from-computers-excluding-dcs">
+<h2>Shortest Path to DA Groups from Computers Excluding DCs<a class="headerlink" href="#shortest-path-to-da-groups-from-computers-excluding-dcs" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Shortest paths to Domain Admins group from computers excluding potential DCs (based on ldap/ and GC/ spns)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">WITH &#39;(?i)ldap/.*&#39; as regex_one WITH &#39;(?i)gc/.*&#39; as regex_two</span>
+<span class="sd">MATCH (n:Computer)</span>
+<span class="sd">WHERE NOT ANY(item IN n.serviceprincipalnames WHERE item =~ regex_two OR item =~ regex_two )</span>
+<span class="sd">MATCH(m:Group {name:&quot;DOMAIN ADMINS@CONTOSO.LOCAL&quot;}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)-[:WriteDacl {isacl: true, isinherited: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unprivileged-users-edges-to-all-nodes">
+<h2>Unprivileged Users Edges to All Nodes<a class="headerlink" href="#unprivileged-users-edges-to-all-nodes" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find all the Edges that any UNPRIVILEGED user (based on the admincount:False) has against all the nodes</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User {admincount:False})</span>
+<span class="sd">MATCH (m)</span>
+<span class="sd">WHERE NOT m.name = n.name</span>
+<span class="sd">MATCH p=allShortestPaths((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">LIMIT 10</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (GUEST@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(GUESTS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (GUEST@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN GUESTS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL_HQ_PRIMARY@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN COMPUTERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(AUTHENTICATED USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(USERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL_HQ_PRIMARY@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN COMPUTERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(AUTHENTICATED USERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(PRE-WINDOWS 2000 COMPATIBLE ACCESS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL_HQ_PRIMARY@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN COMPUTERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL_HQ_PRIMARY@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN COMPUTERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(EVERYONE@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (SQL_HQ_PRIMARY@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN COMPUTERS@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(AUTHENTICATED USERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: true}]-&gt;(CONTOSO USERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: true}]-&gt;(SQLUSERS@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(ENTERPRISE ADMINS@CONTOSO.LOCAL)-[:GenericAll {isacl: true, isinherited: true}]-&gt;(PCI ENCLAVE@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unprivileged-users-acl-abusing-other-users">
+<h2>Unprivileged Users ACL abusing other Users<a class="headerlink" href="#unprivileged-users-acl-abusing-other-users" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find interesting edges related to “ACL Abuse” that uprivileged users have against other users</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User {admincount:False})</span>
+<span class="sd">MATCH (m:User)</span>
+<span class="sd">WHERE NOT m.name = n.name</span>
+<span class="sd">MATCH p=allShortestPaths((n)-[r:AllExtendedRights|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner*1..]-&gt;(m))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="workstations-a-user-can-rdp-into">
+<h2>Workstations a user can RDP into<a class="headerlink" href="#workstations-a-user-can-rdp-into" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find workstations a user can RDP into.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p=(g:Group)-[:CanRDP]-&gt;(c:Computer)</span>
+<span class="sd">WHERE g.objectid ENDS WITH &#39;-513&#39; AND NOT c.operatingsystem CONTAINS &#39;Server&#39;</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="all-domain-users-edges-against-all-computers">
+<h2>All Domain Users Edges Against all Computers<a class="headerlink" href="#all-domain-users-edges-against-all-computers" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find all the privileges (edges) of the domain users against the domain computers (e.g. CanRDP, AdminTo etc. HasSession edge is not included)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span>
+<span class="sd">MATCH p2=(u1)-[*1]-&gt;(c:Computer)</span>
+<span class="sd">RETURN p2</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)},
+ {&#39;p2&#39;: (GMSA-SQL01@CONTOSO.LOCAL)-[:SQLAdmin {isacl: false, port: 1433}]-&gt;(RD-WIN10-001.CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="all-logged-in-admins">
+<h2>All Logged In Admins<a class="headerlink" href="#all-logged-in-admins" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Walter.Legowski (&#64;SadProcessor)</p>
+<p><strong>Description:</strong> List of all logged in administrators</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH </span>
+<span class="sd">p=(a:Computer)-[r:HasSession]-&gt;(b:User) </span>
+<span class="sd">WITH a,b,r </span>
+<span class="sd">MATCH </span>
+<span class="sd">p=shortestPath((b)-[:AdminTo|MemberOf*1..]-&gt;(a)) </span>
+<span class="sd">RETURN b,a,r</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;b&#39;: (_11:Base:User {admincount: true, description: &#39;Built-in account for administering the computer/domain&#39;, distinguishedname: &#39;CN=Administrator,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1586793173.0, lastlogontimestamp: 1586738080.0, name: &#39;ADMINISTRATOR@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-500&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1560189819.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false}),
+  &#39;a&#39;: (_40:Base:Computer {distinguishedname: &#39;CN=PCI-SERVER-001,OU=PCI Computers,OU=PCI Enclave,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: 1586551062.0, name: &#39;PCI-SERVER-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1617&#39;, operatingsystem: &#39;Windows Server 2016 Standard&#39;, owned: false, pwdlastset: 1585683416.0, serviceprincipalnames: [&#39;WSMAN/PCI-SERVER-001&#39;, &#39;WSMAN/PCI-SERVER-001.contoso.local&#39;, &#39;RestrictedKrbHost/PCI-SERVER-001&#39;, &#39;HOST/PCI-SERVER-001&#39;, &#39;RestrictedKrbHost/PCI-SERVER-001.contoso.local&#39;, &#39;HOST/PCI-SERVER-001.contoso.local&#39;], unconstraineddelegation: false}),
+  &#39;r&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="all-domain-admins">
+<h2>All Domain Admins<a class="headerlink" href="#all-domain-admins" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Walter.Legowski (&#64;SadProcessor)</p>
+<p><strong>Description:</strong> List of all domain admins</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:Group) WHERE n.name =~ &quot;(?i).*DOMAIN ADMINS.*&quot;</span>
+<span class="sd">WITH n </span>
+<span class="sd">MATCH (n)&lt;-[r:MemberOf*1..]-(m) </span>
+<span class="sd">RETURN n,r,m</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n&#39;: (_20:Base:Group {admincount: true, description: &#39;Designated administrators of the domain&#39;, distinguishedname: &#39;CN=Domain Admins,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, highvalue: true, name: &#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-512&#39;}),
+  &#39;r&#39;: [(SQL01@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)],
+  &#39;m&#39;: (_38:Base:User {admincount: true, distinguishedname: &#39;CN=SQL01,OU=SQLUsers,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1581142464.0, lastlogontimestamp: 1580846712.0, name: &#39;SQL01@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1606&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1580169201.0, pwdneverexpires: false, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false})},
+ {&#39;n&#39;: (_20:Base:Group {admincount: true, description: &#39;Designated administrators of the domain&#39;, distinguishedname: &#39;CN=Domain Admins,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, highvalue: true, name: &#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-512&#39;}),
+  &#39;r&#39;: [(DAVID.MCGUIRE@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)],
+  &#39;m&#39;: (_27:Base:User {admincount: true, displayname: &#39;David McGuire&#39;, distinguishedname: &#39;CN=David McGuire,OU=Contoso Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1585764232.0, lastlogontimestamp: 1585670785.0, name: &#39;DAVID.MCGUIRE@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1613&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1584460898.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false})},
+ {&#39;n&#39;: (_20:Base:Group {admincount: true, description: &#39;Designated administrators of the domain&#39;, distinguishedname: &#39;CN=Domain Admins,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, highvalue: true, name: &#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-512&#39;}),
+  &#39;r&#39;: [(ADMINISTRATOR@CONTOSO.LOCAL)-[:MemberOf {isacl: false}]-&gt;(DOMAIN ADMINS@CONTOSO.LOCAL)],
+  &#39;m&#39;: (_11:Base:User {admincount: true, description: &#39;Built-in account for administering the computer/domain&#39;, distinguishedname: &#39;CN=Administrator,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1586793173.0, lastlogontimestamp: 1586738080.0, name: &#39;ADMINISTRATOR@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-500&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1560189819.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="computers-with-unconstrained-delegation">
+<h2>Computers with Unconstrained Delegation<a class="headerlink" href="#computers-with-unconstrained-delegation" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find all computers with Unconstrained Delegation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (c:Computer {unconstraineddelegation:true})</span>
+<span class="sd">RETURN c</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;c&#39;: (_41:Base:Computer {distinguishedname: &#39;CN=DC-2016-001,OU=Domain Controllers,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: 1586550660.0, name: &#39;DC-2016-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1000&#39;, operatingsystem: &#39;Windows Server 2016 Standard&#39;, owned: false, pwdlastset: 1586379557.0, serviceprincipalnames: [&#39;Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/ForestDnsZones.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/DomainDnsZones.contoso.local&#39;, &#39;DNS/DC-2016-001.contoso.local&#39;, &#39;GC/DC-2016-001.contoso.local/contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001.contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001&#39;, &#39;RPC/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;HOST/DC-2016-001/CONTOSO&#39;, &#39;HOST/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;HOST/DC-2016-001&#39;, &#39;HOST/DC-2016-001.contoso.local&#39;, &#39;HOST/DC-2016-001.contoso.local/contoso.local&#39;, &#39;E3514235-4B06-11D1-AB04-00C04FC2DCD2/163efdab-a02f-4b72-8de1-b45b21b62341/contoso.local&#39;, &#39;ldap/DC-2016-001/CONTOSO&#39;, &#39;ldap/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;ldap/DC-2016-001&#39;, &#39;ldap/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/contoso.local&#39;], unconstraineddelegation: true})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="unprivileged-users-acl-abusing-computers">
+<h2>Unprivileged Users ACL abusing Computers<a class="headerlink" href="#unprivileged-users-acl-abusing-computers" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find interesting edges related to “ACL Abuse” that unprivileged users have against computers</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User {admincount:False})</span>
+<span class="sd">MATCH p=allShortestPaths((n)-[r:AllExtendedRights|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|AdminTo|CanRDP|ExecuteDCOM|ForceChangePassword*1..]-&gt;(m:Computer))</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="user-sessions-in-a-specific-domain">
+<h2>User Sessions in a Specific Domain<a class="headerlink" href="#user-sessions-in-a-specific-domain" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find all sessions any user in a specific domain has.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH p=(m:Computer)-[r:HasSession]-&gt;(n:User {domain: &quot;CONTOSO.LOCAL&quot;})</span>
+<span class="sd">RETURN p</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;p&#39;: (PCI-SERVER-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ADMINISTRATOR@CONTOSO.LOCAL)},
+ {&#39;p&#39;: (RD-WIN10-001.CONTOSO.LOCAL)-[:HasSession {isacl: false}]-&gt;(ACHILES@CONTOSO.LOCAL)}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="top-10-users-with-most-local-admin-rights">
+<h2>Top 10 Users with Most Local Admin Rights<a class="headerlink" href="#top-10-users-with-most-local-admin-rights" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Walter.Legowski (&#64;SadProcessor)</p>
+<p><strong>Description:</strong> List of top 10 users with most local admin rights</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:User),(m:Computer),(n)-[r:AdminTo]-&gt;(m)</span>
+<span class="sd">WHERE NOT n.name STARTS WITH &#39;ANONYMOUS LOGON&#39; AND NOT n.name=&#39;&#39; WITH n, count(r) as rel_count</span>
+<span class="sd">ORDER BY rel_count desc </span>
+<span class="sd">LIMIT 10 </span>
+<span class="sd">MATCH (m)&lt;-[r:AdminTo]-(n) </span>
+<span class="sd">RETURN n,r,m </span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n&#39;: (_11:Base:User {admincount: true, description: &#39;Built-in account for administering the computer/domain&#39;, distinguishedname: &#39;CN=Administrator,CN=Users,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, dontreqpreauth: false, enabled: true, hasspn: false, highvalue: false, lastlogon: 1586793173.0, lastlogontimestamp: 1586738080.0, name: &#39;ADMINISTRATOR@CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-500&#39;, owned: false, passwordnotreqd: false, pwdlastset: 1560189819.0, pwdneverexpires: true, sensitive: false, serviceprincipalnames: [], sidhistory: [], unconstraineddelegation: false}),
+  &#39;r&#39;: (ADMINISTRATOR@CONTOSO.LOCAL)-[:AdminTo {fromgpo: false, isacl: false}]-&gt;(DC-2016-001.CONTOSO.LOCAL),
+  &#39;m&#39;: (_41:Base:Computer {distinguishedname: &#39;CN=DC-2016-001,OU=Domain Controllers,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, enabled: true, haslaps: false, highvalue: false, lastlogontimestamp: 1586550660.0, name: &#39;DC-2016-001.CONTOSO.LOCAL&#39;, objectid: &#39;S-1-5-21-153951712-174133717-528793688-1000&#39;, operatingsystem: &#39;Windows Server 2016 Standard&#39;, owned: false, pwdlastset: 1586379557.0, serviceprincipalnames: [&#39;Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/ForestDnsZones.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/DomainDnsZones.contoso.local&#39;, &#39;DNS/DC-2016-001.contoso.local&#39;, &#39;GC/DC-2016-001.contoso.local/contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001.contoso.local&#39;, &#39;RestrictedKrbHost/DC-2016-001&#39;, &#39;RPC/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;HOST/DC-2016-001/CONTOSO&#39;, &#39;HOST/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;HOST/DC-2016-001&#39;, &#39;HOST/DC-2016-001.contoso.local&#39;, &#39;HOST/DC-2016-001.contoso.local/contoso.local&#39;, &#39;E3514235-4B06-11D1-AB04-00C04FC2DCD2/163efdab-a02f-4b72-8de1-b45b21b62341/contoso.local&#39;, &#39;ldap/DC-2016-001/CONTOSO&#39;, &#39;ldap/163efdab-a02f-4b72-8de1-b45b21b62341._msdcs.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/CONTOSO&#39;, &#39;ldap/DC-2016-001&#39;, &#39;ldap/DC-2016-001.contoso.local&#39;, &#39;ldap/DC-2016-001.contoso.local/contoso.local&#39;], unconstraineddelegation: true})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="view-all-gpos">
+<h2>View all GPOs<a class="headerlink" href="#view-all-gpos" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> View all GPOs</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (n:GPO)</span>
+<span class="sd">RETURN n</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;n&#39;: (_9:Base:GPO {distinguishedname: &#39;CN={AC4ACFC1-0578-4251-9BBD-E1D0352A5CAF},CN=Policies,CN=System,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, gpcpath: &#39;\\\\contoso.local\\SysVol\\contoso.local\\Policies\\{AC4ACFC1-0578-4251-9BBD-E1D0352A5CAF}&#39;, highvalue: false, name: &#39;PROTECT PCL ENCLAVE@CONTOSO.LOCAL&#39;, objectid: &#39;F9F3C61B-D37D-41EA-A064-71B26119E448&#39;})},
+ {&#39;n&#39;: (_10:Base:GPO {distinguishedname: &#39;CN={6AC1786C-016F-11D2-945F-00C04fB984F9},CN=Policies,CN=System,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, gpcpath: &#39;\\\\contoso.local\\sysvol\\contoso.local\\Policies\\{6AC1786C-016F-11D2-945F-00C04fB984F9}&#39;, highvalue: false, name: &#39;DEFAULT DOMAIN CONTROLLERS POLICY@CONTOSO.LOCAL&#39;, objectid: &#39;6930F38E-81B5-497F-B18B-E770DF862D89&#39;})},
+ {&#39;n&#39;: (_120:Base:GPO {distinguishedname: &#39;CN={31B2F340-016D-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=contoso,DC=local&#39;, domain: &#39;CONTOSO.LOCAL&#39;, gpcpath: &#39;\\\\contoso.local\\sysvol\\contoso.local\\Policies\\{31B2F340-016D-11D2-945F-00C04FB984F9}&#39;, highvalue: false, name: &#39;DEFAULT DOMAIN POLICY@CONTOSO.LOCAL&#39;, objectid: &#39;5E11EF13-E6EE-4600-9EF7-BD5220CCE469&#39;})}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="spns-with-keywords">
+<h2>SPNs with keywords<a class="headerlink" href="#spns-with-keywords" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find SPNs with keywords (swap SQL with whatever)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (u:User)</span>
+<span class="sd">WHERE ANY (x IN u.serviceprincipalnames WHERE toUpper(x) CONTAINS &#39;SQL&#39;)</span>
+<span class="sd">RETURN u.name</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;u.name&#39;: &#39;SQL2014@CONTOSO.LOCAL&#39;}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="group-with-keywords">
+<h2>Group with keywords<a class="headerlink" href="#group-with-keywords" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find a group with keywords. E.g. SQL ADMINS or SQL 2017 ADMINS</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (g:Group)</span>
+<span class="sd">WHERE g.name =~ &#39;(?i).SQL.ADMIN.*&#39;</span>
+<span class="sd">RETURN g</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="kerberoastable-users-with-passwords-last-set-5-years">
+<h2>Kerberoastable Users with passwords last set &gt; 5 years<a class="headerlink" href="#kerberoastable-users-with-passwords-last-set-5-years" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> Find All Users with an SPN/Find all Kerberoastable Users with passwords last set &gt; 5 years ago</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">MATCH (u:User)</span>
+<span class="sd">WHERE u.hasspn=true AND u.pwdlastset &lt; (datetime().epochseconds - (1825 * 86400)) AND NOT u.pwdlastset IN [-1.0, 0.0]</span>
+<span class="sd">RETURN u.name, u.pwdlastset order by u.pwdlastset</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="da-sessions-not-on-a-certain-group">
+<h2>DA sessions not on a certain group<a class="headerlink" href="#da-sessions-not-on-a-certain-group" title="Permalink to this headline">¶</a></h2>
+<p><strong>Author:</strong> Ryan Hausknecht (&#64;haus3c)</p>
+<p><strong>Description:</strong> DA sessions not on a certain group (e.g. domain controllers).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">OPTIONAL MATCH (c:Computer)-[:MemberOf]-&gt;(t:Group)</span>
+<span class="sd">WHERE NOT t.name = &#39;DOMAIN CONTROLLERS@CONTOSO.LOCAL&#39; WITH c as NonDC</span>
+<span class="sd">MATCH p=(NonDC)-[:HasSession]-&gt;(n:User)-[:MemberOf]-&gt;(g:Group {name:&#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;})</span>
+<span class="sd">RETURN DISTINCT (n.name) as Username, COUNT(DISTINCT(NonDC)) as Connexions</span>
+<span class="sd">ORDER BY COUNT(DISTINCT(NonDC)) DESC   </span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[{&#39;Username&#39;: &#39;ADMINISTRATOR@CONTOSO.LOCAL&#39;, &#39;Connexions&#39;: 1}]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/bloodhound-notebook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "notebooks/cypher"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="queries_table.html" title="previous page">Summary Table</a>
+    <a class='right-next' id="next-link" href="../others/intro.html" title="next page">Other Notebooks</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,15 @@
+title: Specific Users Edges to All Nodes
+id: 1B281623-62F0-4A79-921E-3706480AB492
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find all Edges that a specific user has against all the nodes (HasSession is not calculated, as it is an edge that comes from computer to user, not from user to computer)
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:User)
+  WHERE n.name =~ 'JEFFMCJUNKIN@CONTOSO.LOCAL'
+  MATCH (m)
+  WHERE NOT m.name = n.name
+  MATCH p=allShortestPaths((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]->(m))
+  RETURN p
+  LIMIT 10

@@ -1,0 +1,11 @@
+title: View all GPOs that contain a keyword
+id: 8B73AE00-9227-4B7F-9F20-2A4C196C8BF5
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: View all GPOs that contain a keyword
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:GPO)
+  WHERE n.name CONTAINS "DOMAIN"
+  RETURN n

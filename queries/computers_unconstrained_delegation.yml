@@ -1,0 +1,10 @@
+title: Computers with Unconstrained Delegation
+id: 362BC8EA-01A8-491F-BA7E-250D21B1EE57
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find all computers with Unconstrained Delegation
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (c:Computer {unconstraineddelegation:true})
+  RETURN c

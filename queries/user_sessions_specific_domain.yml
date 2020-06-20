@@ -1,0 +1,10 @@
+title: User Sessions in a Specific Domain 
+id: C653F0A6-D62E-4DB0-8787-2FB9ACB9B16C
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find all sessions any user in a specific domain has.
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH p=(m:Computer)-[r:HasSession]->(n:User {domain: "CONTOSO.LOCAL"})
+  RETURN p

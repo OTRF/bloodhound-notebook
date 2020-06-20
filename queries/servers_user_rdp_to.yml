@@ -1,0 +1,11 @@
+title: Servers a user can RDP into
+id: A73E1CC0-EA14-4457-B0D2-A519A666EA6E
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find servers a user can RDP into.
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH p=(g:Group)-[:CanRDP]->(c:Computer)
+  WHERE  g.objectid ENDS WITH '-513' AND c.operatingsystem CONTAINS 'Server'
+  RETURN p   

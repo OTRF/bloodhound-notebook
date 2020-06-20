@@ -1,0 +1,10 @@
+title: View all GPOs 
+id: C9179B15-B621-441D-B00B-95959A89C79A
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: View all GPOs
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:GPO)
+  RETURN n

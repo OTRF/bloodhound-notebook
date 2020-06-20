@@ -1,0 +1,12 @@
+title: Kerberoastable Users with a path to DA
+id: EF7DF8FC-FE1B-40BE-AA4A-49FE8039ECA2
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find Kerberoastable Users with a path to DA
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (u:User {hasspn:true})
+  MATCH (g:Group)
+  WHERE g.name CONTAINS 'DOMAIN ADMINS' MATCH p = shortestPath( (u)-[*1..]->(g) )
+  RETURN p

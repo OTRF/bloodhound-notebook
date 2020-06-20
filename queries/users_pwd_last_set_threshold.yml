@@ -1,0 +1,11 @@
+title: Users with Passwords Last Set withing Threshold
+id: AC001D0D-61CC-45E9-9F20-71E3EBA8F06F
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find users with passwords last set thin the last 90 days. Change 90 to whatever threshold you want.
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (u:User)
+  WHERE u.lastlogon < (datetime().epochseconds - (90 * 86400)) and NOT u.lastlogon IN [-1.0, 0.0]
+  RETURN u.name

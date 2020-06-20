@@ -1,0 +1,11 @@
+title: All Domain Users Edges Against all Computers
+id: 8544DF8D-4CA5-4C96-9814-71CD38A8D3DE
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find all the privileges (edges) of the domain users against the domain computers (e.g. CanRDP, AdminTo etc. HasSession edge is not included)
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]->(g1:Group)))
+  MATCH p2=(u1)-[*1]->(c:Computer)
+  RETURN p2

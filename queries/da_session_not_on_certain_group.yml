@@ -1,0 +1,13 @@
+title: DA sessions not on a certain group
+id: 77AB5233-CBD2-4437-BACD-5E5318DD0AA0
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: DA sessions not on a certain group (e.g. domain controllers).
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  OPTIONAL MATCH (c:Computer)-[:MemberOf]->(t:Group)
+  WHERE NOT t.name = 'DOMAIN CONTROLLERS@CONTOSO.LOCAL' WITH c as NonDC
+  MATCH p=(NonDC)-[:HasSession]->(n:User)-[:MemberOf]->(g:Group {name:'DOMAIN ADMINS@CONTOSO.LOCAL'})
+  RETURN DISTINCT (n.name) as Username, COUNT(DISTINCT(NonDC)) as Connexions
+  ORDER BY COUNT(DISTINCT(NonDC)) DESC   

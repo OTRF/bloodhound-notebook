@@ -1,0 +1,13 @@
+title: Unprivileged Users ACL abusing other Users
+id: 6B6438F2-C830-4737-B07B-55F3905E1EBA
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find interesting edges related to “ACL Abuse” that uprivileged users have against other users
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:User {admincount:False})
+  MATCH (m:User)
+  WHERE NOT m.name = n.name
+  MATCH p=allShortestPaths((n)-[r:AllExtendedRights|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner*1..]->(m))
+  RETURN p

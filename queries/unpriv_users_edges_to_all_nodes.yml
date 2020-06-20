@@ -1,0 +1,14 @@
+title: Unprivileged Users Edges to All Nodes
+id: 897809D8-5DE5-4D39-8602-F50E4B22EBF5
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find all the Edges that any UNPRIVILEGED user (based on the admincount:False) has against all the nodes
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:User {admincount:False})
+  MATCH (m)
+  WHERE NOT m.name = n.name
+  MATCH p=allShortestPaths((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]->(m))
+  RETURN p
+  LIMIT 10

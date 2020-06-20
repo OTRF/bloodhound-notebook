@@ -1,0 +1,16 @@
+title: Top 10 Users with Most Sessions
+id: 0E88F511-1582-4F42-97A6-96CB58B2AC4A
+creation_date: 2020/06/20
+author: Walter.Legowski (@SadProcessor)
+description: List Top 10 Users with Most Sessions
+references:
+  - https://github.com/SadProcessor/Cheats/blob/master/DogWhispererV2.md#ii--built-in
+query: |-
+  MATCH (n:User),(m:Computer),(n)<-[r:HasSession]-(m) 
+  WHERE NOT n.name STARTS WITH 'ANONYMOUS LOGON' 
+  AND NOT n.name='' WITH n, 
+  count(r) as rel_count 
+  order by rel_count desc 
+  LIMIT 10 
+  MATCH (m)-[r:HasSession]->(n) 
+  RETURN n,r,m

@@ -1,0 +1,10 @@
+title: Shortest Path to DA Groups from Non-Privileged Domain Users
+id: 12AC608C-E272-467F-A8A0-70806700E7DF
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Shortest paths to Domain Admins group from non privileged users (AdminCount=false)
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:User {admincount:false}),(m:Group {name:'DOMAIN ADMINS@CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]->(m))
+  RETURN p

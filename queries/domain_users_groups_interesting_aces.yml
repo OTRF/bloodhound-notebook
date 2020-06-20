@@ -1,0 +1,12 @@
+title: Domain Users Groups with Interesting ACEs
+id: 18DF8CF6-976F-48B0-8254-CA58CD393BF7
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c), Roberto Rodriguez (@Cyb3rWard0g)
+description: Find interesting privileges/ACEs that have been configured to DOMAIN USERS group
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (m:Group)
+  WHERE m.name =~ 'DOMAIN USERS@CONTOSO.LOCAL'
+  MATCH p=(m)-[r:Owns|WriteDacl|GenericAll|WriteOwner|ExecuteDCOM|GenericWrite|AllowedToDelegate|ForceChangePassword]->(n:Computer)
+  RETURN p

@@ -1,0 +1,12 @@
+title: All Domain Admins
+id: 2B7C7CCD-6501-48DA-BF4E-837F363E9451
+creation_date: 2020/06/20
+author: Walter.Legowski (@SadProcessor)
+description: List of all domain admins
+references:
+  - https://github.com/SadProcessor/Cheats/blob/master/DogWhispererV2.md#ii--built-in
+query: |-
+  MATCH (n:Group) WHERE n.name =~ "(?i).*DOMAIN ADMINS.*"
+  WITH n 
+  MATCH (n)<-[r:MemberOf*1..]-(m) 
+  RETURN n,r,m

@@ -1,0 +1,9 @@
+title: Map Domain Trusts
+id: E7DE2A04-631F-435F-88D2-5701688D3059
+creation_date: 2020/06/20
+author: Walter.Legowski (@SadProcessor)
+description: Map domain trusts
+references:
+  - https://github.com/SadProcessor/Cheats/blob/master/DogWhispererV2.md#ii--built-in
+query: |-
+  MATCH (n:Domain) MATCH p=(n)-[r]-() RETURN p

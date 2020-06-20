@@ -1,0 +1,12 @@
+title: Shortest Path to DA Groups from Domain Groups
+id: 91626EAA-0531-484B-A093-C9A215FC7825
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Shortest paths to Domain Admins group from all domain groups
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (n:Group)
+  WHERE NOT n.name = 'DOMAIN ADMINS@CONTOSO.LOCAL'
+  MATCH (m:Group {name:'DOMAIN ADMINS@CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]->(m))
+  RETURN p

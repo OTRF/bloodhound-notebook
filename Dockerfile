@@ -9,9 +9,11 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV NEO4J_VERSION 4.0.6
 ENV NEO4J_TARBALL neo4j-community-${NEO4J_VERSION}-unix.tar.gz
 ENV NEO4J_HOME /var/lib/neo4j
-ENV NEO4J_URI http://dist.neo4j.org/${NEO4J_TARBALL}
+ARG NEO4J_URI=http://dist.neo4j.org/${NEO4J_TARBALL}
 
 USER root
+
+COPY scripts/docker-entrypoint.sh /opt/docker-entrypoint.sh
 
 RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends openjdk-11-jdk \
   && curl --fail --silent --show-error --location --remote-name ${NEO4J_URI} \
@@ -31,17 +33,26 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends o
   && rm -rf /tmp/* \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get -y purge --auto-remove curl \
-  && apt-get -qy clean autoremove
+  && apt-get -qy clean autoremove \
+  && chmod +x /opt/docker-entrypoint.sh \
+  && chown -R ${USER}:${USER} /opt/docker-entrypoint.sh \
+  # Download BloodHound & Set BloodHound Sample Database
+  && git clone https://github.com/BloodHoundAD/BloodHound /opt/BloodHound \
+  && mkdir -p /var/lib/neo4j/data/databases/ \
+  && mv /opt/BloodHound/BloodHoundExampleDB.db /var/lib/neo4j/data/databases/bloodhoundexampledb.db \
+  && chown -R ${USER}:${USER} /var/lib/neo4j/data/databases/bloodhoundexampledb.db
 
 USER ${USER}
 
 RUN python3 -m pip install --upgrade pip \
-  && python3 -m pip install py2neo==4.3.0 plotly==4.3.0 altair==3.2.0 ipywidgets==7.5.1
+  && python3 -m pip install py2neo==4.3.0 plotly==4.3.0 altair==4.1.0 ipywidgets==7.5.1
+
+COPY scripts/conf/neo4j.conf /var/lib/neo4j/conf/neo4j.conf
+COPY notebooks ${HOME}/notebooks
 
 ENV PATH ${NEO4J_HOME}/bin:$PATH
-
-COPY scripts/docker-entrypoint.sh /opt/docker-entrypoint.sh
 
 EXPOSE 7474 7473 7687
 
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
+CMD ["/opt/jupyter/scripts/jupyter-cmd.sh"]

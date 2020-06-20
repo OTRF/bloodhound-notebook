@@ -1,0 +1,11 @@
+title: SPNs with keywords
+id: BEB1EC36-19A4-4DEE-A656-E522BDAAA301
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find SPNs with keywords (swap SQL with whatever)
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (u:User)
+  WHERE ANY (x IN u.serviceprincipalnames WHERE toUpper(x) CONTAINS 'SQL')
+  RETURN u.name

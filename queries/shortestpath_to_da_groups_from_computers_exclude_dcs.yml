@@ -1,0 +1,13 @@
+title: Shortest Path to DA Groups from Computers Excluding DCs
+id: 3C112614-ABE6-434E-AD18-4BFA899FF974
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Shortest paths to Domain Admins group from computers excluding potential DCs (based on ldap/ and GC/ spns)
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  WITH '(?i)ldap/.*' as regex_one WITH '(?i)gc/.*' as regex_two
+  MATCH (n:Computer)
+  WHERE NOT ANY(item IN n.serviceprincipalnames WHERE item =~ regex_two OR item =~ regex_two )
+  MATCH(m:Group {name:"DOMAIN ADMINS@CONTOSO.LOCAL"}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]->(m))
+  RETURN p

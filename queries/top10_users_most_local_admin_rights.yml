@@ -1,0 +1,14 @@
+title: Top 10 Users with Most Local Admin Rights
+id: 1FE521C1-D00F-47D8-A16D-BE21B61FFF52
+creation_date: 2020/06/20
+author: Walter.Legowski (@SadProcessor)
+description: List of top 10 users with most local admin rights
+references:
+  - https://github.com/SadProcessor/Cheats/blob/master/DogWhispererV2.md#ii--built-in
+query: |-
+  MATCH (n:User),(m:Computer),(n)-[r:AdminTo]->(m)
+  WHERE NOT n.name STARTS WITH 'ANONYMOUS LOGON' AND NOT n.name='' WITH n, count(r) as rel_count
+  ORDER BY rel_count desc 
+  LIMIT 10 
+  MATCH (m)<-[r:AdminTo]-(n) 
+  RETURN n,r,m 

@@ -1,0 +1,14 @@
+title: Top 10 Computers with Most Admins
+id: FE27C545-A0FA-4FD9-9E15-ADE9FC6EBEB8
+creation_date: 2020/06/20
+author: Walter.Legowski (@SadProcessor)
+description: List of top 10 computers with most admins
+references:
+  - https://github.com/SadProcessor/Cheats/blob/master/DogWhispererV2.md#ii--built-in
+query: |-
+  MATCH (n:User),(m:Computer),(n)-[r:AdminTo]->(m)
+  WHERE NOT n.name STARTS WITH 'ANONYMOUS LOGON' AND NOT n.name='' WITH m,count(r) as rel_count 
+  ORDER BY rel_count desc 
+  LIMIT 10 
+  MATCH (m)<-[r:AdminTo]-(n) 
+  RETURN n,r,m

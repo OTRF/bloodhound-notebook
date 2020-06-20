@@ -1,0 +1,11 @@
+title: Group with keywords
+id: 990D0D08-A3CB-473F-A15B-E2E92956AC06
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find a group with keywords. E.g. SQL ADMINS or SQL 2017 ADMINS
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (g:Group)
+  WHERE g.name =~ '(?i).SQL.ADMIN.*'
+  RETURN g

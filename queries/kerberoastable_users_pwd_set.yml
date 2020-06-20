@@ -1,0 +1,11 @@
+title: Kerberoastable Users with passwords last set > 5 years
+id: 02E20742-1E32-43FA-8FA3-5AFF1429E6BE
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find All Users with an SPN/Find all Kerberoastable Users with passwords last set > 5 years ago
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (u:User)
+  WHERE u.hasspn=true AND u.pwdlastset < (datetime().epochseconds - (1825 * 86400)) AND NOT u.pwdlastset IN [-1.0, 0.0]
+  RETURN u.name, u.pwdlastset order by u.pwdlastset

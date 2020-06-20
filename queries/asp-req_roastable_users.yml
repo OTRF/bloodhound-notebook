@@ -1,0 +1,10 @@
+title: ASP-REQ Roastable Users
+id: 11799CB0-28B6-4C93-9E8C-235F5AA2524C
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find user that doesn’t require kerberos pre-authentication (aka AS-REP Roasting)
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (u:User {dontreqpreauth: true})
+  RETURN u

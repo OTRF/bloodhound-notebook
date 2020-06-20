@@ -1,0 +1,11 @@
+title: Users that Logged in ithin Threshold
+id: 1A034FC4-79CD-43F8-B941-28F5A1C55F6C
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find users that logged in within the last 90 days. Change 90 to whatever threshold you want.
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH (u:User)
+  WHERE u.lastlogon < (datetime().epochseconds - (90 * 86400)) and NOT u.lastlogon IN [-1.0, 0.0]
+  RETURN u.name

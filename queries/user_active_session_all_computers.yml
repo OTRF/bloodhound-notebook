@@ -1,0 +1,11 @@
+title: Active Users Sessions in all Domain Computers 
+id: 255E68A6-9895-49D5-A915-0F42D27A12B6
+creation_date: 2020/06/20
+author: Ryan Hausknecht (@haus3c)
+description: Find the active user sessions on all domain computers
+references:
+  - https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/
+query: |-
+  MATCH p1=shortestPath(((u1:User)-[r1:MemberOf*1..]->(g1:Group)))
+  MATCH p2=(c:Computer)-[*1]->(u1)
+  RETURN p2
