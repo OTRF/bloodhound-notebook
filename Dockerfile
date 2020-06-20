@@ -35,7 +35,7 @@ RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends o
   && apt-get -y purge --auto-remove curl \
   && apt-get -qy clean autoremove \
   && chmod +x /opt/docker-entrypoint.sh \
-  && chown -R ${USER}:${USER} /opt/docker-entrypoint.sh \
+  && chown ${USER}:${USER} /opt/docker-entrypoint.sh \
   # Download BloodHound & Set BloodHound Sample Database
   && git clone https://github.com/BloodHoundAD/BloodHound /opt/BloodHound \
   && mkdir -p /var/lib/neo4j/data/databases/ \
@@ -51,8 +51,6 @@ COPY scripts/conf/neo4j.conf /var/lib/neo4j/conf/neo4j.conf
 COPY docs ${HOME}/docs
 
 ENV PATH ${NEO4J_HOME}/bin:$PATH
-
-EXPOSE 7474 7473 7687
 
 WORKDIR ${HOME}
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
