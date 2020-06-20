@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Summary Table &#8212; BloodHound Notebook Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/mystnb.js"></script>
+    <script src="../../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .secondtoggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="../../_static/thebelab.js"></script>
+    <link rel="canonical" href="https://bloodhoundnotebook.com/notebooks/cypher/queries_table.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Queries Notebook" href="queries_notebook.html" />
+    <link rel="prev" title="BloodHound Notebook Project" href="../../intro.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://bloodhoundnotebook.com/notebooks/cypher/queries_table.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Summary Table" />
+<meta property="og:description" content="Summary Table            Created  Title  Description  Author(s)  Query  2020/06/20  Servers a user can RDP into  Find servers a user can RDP into.  Ryan Hauskne" />
+<meta property="og:image"       content="https://bloodhoundnotebook.com/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">BloodHound Notebook Project</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+<li class="navbar-special">
+<p class="margin-caption">Cypher Community</p>
+</li>
+  <li class="active">
+    <a href="">Summary Table</a>
+  </li>
+  <li class="">
+    <a href="queries_notebook.html">Queries Notebook</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Other Notebooks</p>
+</li>
+  <li class="">
+    <a href="../others/intro.html">Other Notebooks</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer">Powered by <a href="https://jupyterbook.org">Jupyter Book</a></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="../../_sources/notebooks/cypher/queries_table.md.txt"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        <a class="edit-button" href="https://github.com/OTRF/bloodhound-notebook/edit/master/docs/notebooks/cypher/queries_table.md"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" title="Edit this page"><i class="fas fa-pencil-alt"></i></button></a>
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/OTRF/bloodhound-notebook/edit/master/docs/notebooks/cypher/queries_table.md">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="summary-table">
+<h1>Summary Table<a class="headerlink" href="#summary-table" title="Permalink to this headline">¶</a></h1>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="text-align:left head"><p>Created</p></th>
+<th class="text-align:left head"><p>Title</p></th>
+<th class="text-align:left head"><p>Description</p></th>
+<th class="text-align:left head"><p>Author(s)</p></th>
+<th class="text-align:left head"><p>Query</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Servers a user can RDP into</p></td>
+<td class="text-align:left"><p>Find servers a user can RDP into.</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p=(g:Group)-[:CanRDP]-&gt;(c:Computer)</span> <span class="pre">WHERE</span>&#160; <span class="pre">g.objectid</span> <span class="pre">ENDS</span> <span class="pre">WITH</span> <span class="pre">'-513'</span> <span class="pre">AND</span> <span class="pre">c.operatingsystem</span> <span class="pre">CONTAINS</span> <span class="pre">'Server'</span> <span class="pre">RETURN</span> <span class="pre">p</span>&#160;&#160; </code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>View all GPOs that contain a keyword</p></td>
+<td class="text-align:left"><p>View all GPOs that contain a keyword</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:GPO)</span> <span class="pre">WHERE</span> <span class="pre">n.name</span> <span class="pre">CONTAINS</span> <span class="pre">&quot;DOMAIN&quot;</span> <span class="pre">RETURN</span> <span class="pre">n</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Domain Users Groups with Interesting ACEs</p></td>
+<td class="text-align:left"><p>Find interesting privileges/ACEs that have been configured to DOMAIN USERS group</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c), Roberto Rodriguez (&#64;Cyb3rWard0g)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(m:Group)</span> <span class="pre">WHERE</span> <span class="pre">m.name</span> <span class="pre">=~</span> <span class="pre">'DOMAIN</span> <span class="pre">USERS&#64;CONTOSO.LOCAL'</span> <span class="pre">MATCH</span> <span class="pre">p=(m)-[r:Owns|WriteDacl|GenericAll|WriteOwner|ExecuteDCOM|GenericWrite|AllowedToDelegate|ForceChangePassword]-&gt;(n:Computer)</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Top 10 Computers with Most Admins</p></td>
+<td class="text-align:left"><p>List of top 10 computers with most admins</p></td>
+<td class="text-align:left"><p>Walter.Legowski (&#64;SadProcessor)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User),(m:Computer),(n)-[r:AdminTo]-&gt;(m)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">n.name</span> <span class="pre">STARTS</span> <span class="pre">WITH</span> <span class="pre">'ANONYMOUS</span> <span class="pre">LOGON'</span> <span class="pre">AND</span> <span class="pre">NOT</span> <span class="pre">n.name=''</span> <span class="pre">WITH</span> <span class="pre">m,count(r)</span> <span class="pre">as</span> <span class="pre">rel_count</span>&#160; <span class="pre">ORDER</span> <span class="pre">BY</span> <span class="pre">rel_count</span> <span class="pre">desc</span>&#160; <span class="pre">LIMIT</span> <span class="pre">10</span>&#160; <span class="pre">MATCH</span> <span class="pre">(m)&lt;-[r:AdminTo]-(n)</span>&#160; <span class="pre">RETURN</span> <span class="pre">n,r,m</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Map Domain Trusts</p></td>
+<td class="text-align:left"><p>Map domain trusts</p></td>
+<td class="text-align:left"><p>Walter.Legowski (&#64;SadProcessor)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:Domain)</span> <span class="pre">MATCH</span> <span class="pre">p=(n)-[r]-()</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>High Value Target Group</p></td>
+<td class="text-align:left"><p>Show all high value target group</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p=(n:User)-[r:MemberOf*1..]-&gt;(m:Group</span> <span class="pre">{highvalue:true})</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Shortest Path to DA Groups from Domain Users Groups</p></td>
+<td class="text-align:left"><p>Shortest paths to Domain Admins group from the Domain Users group</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(g:Group)</span> <span class="pre">WHERE</span> <span class="pre">g.name</span> <span class="pre">=~</span> <span class="pre">'DOMAIN</span> <span class="pre">USERS&#64;.*'</span> <span class="pre">MATCH</span> <span class="pre">(g1:Group)</span> <span class="pre">WHERE</span> <span class="pre">g1.name</span> <span class="pre">=~</span> <span class="pre">'DOMAIN</span> <span class="pre">ADMINS&#64;.*'</span> <span class="pre">OPTIONAL</span> <span class="pre">MATCH</span> <span class="pre">p=shortestPath((g)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]-&gt;(g1))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>ASP-REQ Roastable Users</p></td>
+<td class="text-align:left"><p>Find user that doesn’t require kerberos pre-authentication (aka AS-REP Roasting)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(u:User</span> <span class="pre">{dontreqpreauth:</span> <span class="pre">true})</span> <span class="pre">RETURN</span> <span class="pre">u</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Unprivileged Users with Rights to Add Members to Groups</p></td>
+<td class="text-align:left"><p>Find if unprivileged users have rights to add members into groups</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User</span> <span class="pre">{admincount:False})</span> <span class="pre">MATCH</span> <span class="pre">p=allShortestPaths((n)-[r:AddMember*1..]-&gt;(m:Group))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Users that Logged in ithin Threshold</p></td>
+<td class="text-align:left"><p>Find users that logged in within the last 90 days. Change 90 to whatever threshold you want.</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(u:User)</span> <span class="pre">WHERE</span> <span class="pre">u.lastlogon</span> <span class="pre">&lt;</span> <span class="pre">(datetime().epochseconds</span> <span class="pre">-</span> <span class="pre">(90</span> <span class="pre">*</span> <span class="pre">86400))</span> <span class="pre">and</span> <span class="pre">NOT</span> <span class="pre">u.lastlogon</span> <span class="pre">IN</span> <span class="pre">[-1.0,</span> <span class="pre">0.0]</span> <span class="pre">RETURN</span> <span class="pre">u.name</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Shortest Path to DA Groups from Non-Privileged Domain Users</p></td>
+<td class="text-align:left"><p>Shortest paths to Domain Admins group from non privileged users (AdminCount=false)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User</span> <span class="pre">{admincount:false}),(m:Group</span> <span class="pre">{name:'DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Unsupported OSs</p></td>
+<td class="text-align:left"><p>Find unsupported OSs</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(H:Computer)</span> <span class="pre">WHERE</span> <span class="pre">H.operatingsystem</span> <span class="pre">=~</span> <span class="pre">'.*(2000|2003|2008|xp|vista|7|me)*.'</span> <span class="pre">RETURN</span> <span class="pre">H.name</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Top 10 Users with Most Sessions</p></td>
+<td class="text-align:left"><p>List Top 10 Users with Most Sessions</p></td>
+<td class="text-align:left"><p>Walter.Legowski (&#64;SadProcessor)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User),(m:Computer),(n)&lt;-[r:HasSession]-(m)</span>&#160; <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">n.name</span> <span class="pre">STARTS</span> <span class="pre">WITH</span> <span class="pre">'ANONYMOUS</span> <span class="pre">LOGON'</span>&#160; <span class="pre">AND</span> <span class="pre">NOT</span> <span class="pre">n.name=''</span> <span class="pre">WITH</span> <span class="pre">n,</span>&#160; <span class="pre">count(r)</span> <span class="pre">as</span> <span class="pre">rel_count</span>&#160; <span class="pre">order</span> <span class="pre">by</span> <span class="pre">rel_count</span> <span class="pre">desc</span>&#160; <span class="pre">LIMIT</span> <span class="pre">10</span>&#160; <span class="pre">MATCH</span> <span class="pre">(m)-[r:HasSession]-&gt;(n)</span>&#160; <span class="pre">RETURN</span> <span class="pre">n,r,m</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Users with Passwords Last Set withing Threshold</p></td>
+<td class="text-align:left"><p>Find users with passwords last set thin the last 90 days. Change 90 to whatever threshold you want.</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(u:User)</span> <span class="pre">WHERE</span> <span class="pre">u.lastlogon</span> <span class="pre">&lt;</span> <span class="pre">(datetime().epochseconds</span> <span class="pre">-</span> <span class="pre">(90</span> <span class="pre">*</span> <span class="pre">86400))</span> <span class="pre">and</span> <span class="pre">NOT</span> <span class="pre">u.lastlogon</span> <span class="pre">IN</span> <span class="pre">[-1.0,</span> <span class="pre">0.0]</span> <span class="pre">RETURN</span> <span class="pre">u.name</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Shortest Path to DA Groups from Computers</p></td>
+<td class="text-align:left"><p>Shortest paths to Domain Admins group from computers</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c), Roberto Rodriguez (&#64;Cyb3rWard0g)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:Computer),(m:Group</span> <span class="pre">{name:'DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>All Domain Users CanRDP Edges Against all Computers</p></td>
+<td class="text-align:left"><p>Find only the CanRDP privileges (edges) of the domain users against the domain computers</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span> <span class="pre">MATCH</span> <span class="pre">p2=(u1)-[:CanRDP*1..]-&gt;(c:Computer)</span> <span class="pre">RETURN</span> <span class="pre">p2</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>All Domain Users AdminTo Edges Against all Computers</p></td>
+<td class="text-align:left"><p>Find only the AdminTo privileges (edges) of the domain users against the domain computers</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span> <span class="pre">MATCH</span> <span class="pre">p2=(u1)-[:AdminTo*1..]-&gt;(c:Computer)</span> <span class="pre">RETURN</span> <span class="pre">p2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Active Users Sessions in all Domain Computers</p></td>
+<td class="text-align:left"><p>Find the active user sessions on all domain computers</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span> <span class="pre">MATCH</span> <span class="pre">p2=(c:Computer)-[*1]-&gt;(u1)</span> <span class="pre">RETURN</span> <span class="pre">p2</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Kerberoastable Users with a path to DA</p></td>
+<td class="text-align:left"><p>Find Kerberoastable Users with a path to DA</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(u:User</span> <span class="pre">{hasspn:true})</span> <span class="pre">MATCH</span> <span class="pre">(g:Group)</span> <span class="pre">WHERE</span> <span class="pre">g.name</span> <span class="pre">CONTAINS</span> <span class="pre">'DOMAIN</span> <span class="pre">ADMINS'</span> <span class="pre">MATCH</span> <span class="pre">p</span> <span class="pre">=</span> <span class="pre">shortestPath(</span> <span class="pre">(u)-[*1..]-&gt;(g)</span> <span class="pre">)</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Kerberoastable Users</p></td>
+<td class="text-align:left"><p>Find All Users with an SPN/Find all Kerberoastable Users</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User)WHERE</span> <span class="pre">n.hasspn=true</span> <span class="pre">RETURN</span> <span class="pre">n.name</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Specific Users Edges to All Nodes</p></td>
+<td class="text-align:left"><p>Find all Edges that a specific user has against all the nodes (HasSession is not calculated, as it is an edge that comes from computer to user, not from user to computer)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User)</span> <span class="pre">WHERE</span> <span class="pre">n.name</span> <span class="pre">=~</span> <span class="pre">'JEFFMCJUNKIN&#64;CONTOSO.LOCAL'</span> <span class="pre">MATCH</span> <span class="pre">(m)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">m.name</span> <span class="pre">=</span> <span class="pre">n.name</span> <span class="pre">MATCH</span> <span class="pre">p=allShortestPaths((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span> <span class="pre">LIMIT</span> <span class="pre">10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Shortest Path to DA Groups from Domain Groups</p></td>
+<td class="text-align:left"><p>Shortest paths to Domain Admins group from all domain groups</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:Group)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">n.name</span> <span class="pre">=</span> <span class="pre">'DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL'</span> <span class="pre">MATCH</span> <span class="pre">(m:Group</span> <span class="pre">{name:'DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Shortest Path to DA Groups from Non-Privileged Domain Groups</p></td>
+<td class="text-align:left"><p>Shortest paths to Domain Admins group from non-privileged groups (AdminCount=false)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:Group</span> <span class="pre">{admincount:false}),(m:Group</span> <span class="pre">{name:'DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL'}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Shortest Path to DA Groups from Computers Excluding DCs</p></td>
+<td class="text-align:left"><p>Shortest paths to Domain Admins group from computers excluding potential DCs (based on ldap/ and GC/ spns)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">WITH</span> <span class="pre">'(?i)ldap/.*'</span> <span class="pre">as</span> <span class="pre">regex_one</span> <span class="pre">WITH</span> <span class="pre">'(?i)gc/.*'</span> <span class="pre">as</span> <span class="pre">regex_two</span> <span class="pre">MATCH</span> <span class="pre">(n:Computer)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">ANY(item</span> <span class="pre">IN</span> <span class="pre">n.serviceprincipalnames</span> <span class="pre">WHERE</span> <span class="pre">item</span> <span class="pre">=~</span> <span class="pre">regex_two</span> <span class="pre">OR</span> <span class="pre">item</span> <span class="pre">=~</span> <span class="pre">regex_two</span> <span class="pre">)</span> <span class="pre">MATCH(m:Group</span> <span class="pre">{name:&quot;DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL&quot;}),p=shortestPath((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Unprivileged Users Edges to All Nodes</p></td>
+<td class="text-align:left"><p>Find all the Edges that any UNPRIVILEGED user (based on the admincount:False) has against all the nodes</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User</span> <span class="pre">{admincount:False})</span> <span class="pre">MATCH</span> <span class="pre">(m)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">m.name</span> <span class="pre">=</span> <span class="pre">n.name</span> <span class="pre">MATCH</span> <span class="pre">p=allShortestPaths((n)-[r:MemberOf|HasSession|AdminTo|AllExtendedRights|AddMember|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|CanRDP|ExecuteDCOM|AllowedToDelegate|ReadLAPSPassword|Contains|GpLink|AddAllowedToAct|AllowedToAct|SQLAdmin*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span> <span class="pre">LIMIT</span> <span class="pre">10</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Unprivileged Users ACL abusing other Users</p></td>
+<td class="text-align:left"><p>Find interesting edges related to “ACL Abuse” that uprivileged users have against other users</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User</span> <span class="pre">{admincount:False})</span> <span class="pre">MATCH</span> <span class="pre">(m:User)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">m.name</span> <span class="pre">=</span> <span class="pre">n.name</span> <span class="pre">MATCH</span> <span class="pre">p=allShortestPaths((n)-[r:AllExtendedRights|ForceChangePassword|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner*1..]-&gt;(m))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Workstations a user can RDP into</p></td>
+<td class="text-align:left"><p>Find workstations a user can RDP into.</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p=(g:Group)-[:CanRDP]-&gt;(c:Computer)</span> <span class="pre">WHERE</span> <span class="pre">g.objectid</span> <span class="pre">ENDS</span> <span class="pre">WITH</span> <span class="pre">'-513'</span> <span class="pre">AND</span> <span class="pre">NOT</span> <span class="pre">c.operatingsystem</span> <span class="pre">CONTAINS</span> <span class="pre">'Server'</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>All Domain Users Edges Against all Computers</p></td>
+<td class="text-align:left"><p>Find all the privileges (edges) of the domain users against the domain computers (e.g. CanRDP, AdminTo etc. HasSession edge is not included)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p1=shortestPath(((u1:User)-[r1:MemberOf*1..]-&gt;(g1:Group)))</span> <span class="pre">MATCH</span> <span class="pre">p2=(u1)-[*1]-&gt;(c:Computer)</span> <span class="pre">RETURN</span> <span class="pre">p2</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>All Logged In Admins</p></td>
+<td class="text-align:left"><p>List of all logged in administrators</p></td>
+<td class="text-align:left"><p>Walter.Legowski (&#64;SadProcessor)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span>&#160; <span class="pre">p=(a:Computer)-[r:HasSession]-&gt;(b:User)</span>&#160; <span class="pre">WITH</span> <span class="pre">a,b,r</span>&#160; <span class="pre">MATCH</span>&#160; <span class="pre">p=shortestPath((b)-[:AdminTo|MemberOf*1..]-&gt;(a))</span>&#160; <span class="pre">RETURN</span> <span class="pre">b,a,r</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>All Domain Admins</p></td>
+<td class="text-align:left"><p>List of all domain admins</p></td>
+<td class="text-align:left"><p>Walter.Legowski (&#64;SadProcessor)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:Group)</span> <span class="pre">WHERE</span> <span class="pre">n.name</span> <span class="pre">=~</span> <span class="pre">&quot;(?i).*DOMAIN</span> <span class="pre">ADMINS.*&quot;</span> <span class="pre">WITH</span> <span class="pre">n</span>&#160; <span class="pre">MATCH</span> <span class="pre">(n)&lt;-[r:MemberOf*1..]-(m)</span>&#160; <span class="pre">RETURN</span> <span class="pre">n,r,m</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Computers with Unconstrained Delegation</p></td>
+<td class="text-align:left"><p>Find all computers with Unconstrained Delegation</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(c:Computer</span> <span class="pre">{unconstraineddelegation:true})</span> <span class="pre">RETURN</span> <span class="pre">c</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Unprivileged Users ACL abusing Computers</p></td>
+<td class="text-align:left"><p>Find interesting edges related to “ACL Abuse” that unprivileged users have against computers</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User</span> <span class="pre">{admincount:False})</span> <span class="pre">MATCH</span> <span class="pre">p=allShortestPaths((n)-[r:AllExtendedRights|GenericAll|GenericWrite|Owns|WriteDacl|WriteOwner|AdminTo|CanRDP|ExecuteDCOM|ForceChangePassword*1..]-&gt;(m:Computer))</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>User Sessions in a Specific Domain</p></td>
+<td class="text-align:left"><p>Find all sessions any user in a specific domain has.</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">p=(m:Computer)-[r:HasSession]-&gt;(n:User</span> <span class="pre">{domain:</span> <span class="pre">&quot;CONTOSO.LOCAL&quot;})</span> <span class="pre">RETURN</span> <span class="pre">p</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Top 10 Users with Most Local Admin Rights</p></td>
+<td class="text-align:left"><p>List of top 10 users with most local admin rights</p></td>
+<td class="text-align:left"><p>Walter.Legowski (&#64;SadProcessor)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:User),(m:Computer),(n)-[r:AdminTo]-&gt;(m)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">n.name</span> <span class="pre">STARTS</span> <span class="pre">WITH</span> <span class="pre">'ANONYMOUS</span> <span class="pre">LOGON'</span> <span class="pre">AND</span> <span class="pre">NOT</span> <span class="pre">n.name=''</span> <span class="pre">WITH</span> <span class="pre">n,</span> <span class="pre">count(r)</span> <span class="pre">as</span> <span class="pre">rel_count</span> <span class="pre">ORDER</span> <span class="pre">BY</span> <span class="pre">rel_count</span> <span class="pre">desc</span>&#160; <span class="pre">LIMIT</span> <span class="pre">10</span>&#160; <span class="pre">MATCH</span> <span class="pre">(m)&lt;-[r:AdminTo]-(n)</span>&#160; <span class="pre">RETURN</span> <span class="pre">n,r,m</span> </code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>View all GPOs</p></td>
+<td class="text-align:left"><p>View all GPOs</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(n:GPO)</span> <span class="pre">RETURN</span> <span class="pre">n</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>SPNs with keywords</p></td>
+<td class="text-align:left"><p>Find SPNs with keywords (swap SQL with whatever)</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(u:User)</span> <span class="pre">WHERE</span> <span class="pre">ANY</span> <span class="pre">(x</span> <span class="pre">IN</span> <span class="pre">u.serviceprincipalnames</span> <span class="pre">WHERE</span> <span class="pre">toUpper(x)</span> <span class="pre">CONTAINS</span> <span class="pre">'SQL')</span> <span class="pre">RETURN</span> <span class="pre">u.name</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Group with keywords</p></td>
+<td class="text-align:left"><p>Find a group with keywords. E.g. SQL ADMINS or SQL 2017 ADMINS</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(g:Group)</span> <span class="pre">WHERE</span> <span class="pre">g.name</span> <span class="pre">=~</span> <span class="pre">'(?i).SQL.ADMIN.*'</span> <span class="pre">RETURN</span> <span class="pre">g</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>Kerberoastable Users with passwords last set &gt; 5 years</p></td>
+<td class="text-align:left"><p>Find All Users with an SPN/Find all Kerberoastable Users with passwords last set &gt; 5 years ago</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">MATCH</span> <span class="pre">(u:User)</span> <span class="pre">WHERE</span> <span class="pre">u.hasspn=true</span> <span class="pre">AND</span> <span class="pre">u.pwdlastset</span> <span class="pre">&lt;</span> <span class="pre">(datetime().epochseconds</span> <span class="pre">-</span> <span class="pre">(1825</span> <span class="pre">*</span> <span class="pre">86400))</span> <span class="pre">AND</span> <span class="pre">NOT</span> <span class="pre">u.pwdlastset</span> <span class="pre">IN</span> <span class="pre">[-1.0,</span> <span class="pre">0.0]</span> <span class="pre">RETURN</span> <span class="pre">u.name,</span> <span class="pre">u.pwdlastset</span> <span class="pre">order</span> <span class="pre">by</span> <span class="pre">u.pwdlastset</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-align:left"><p>2020/06/20</p></td>
+<td class="text-align:left"><p>DA sessions not on a certain group</p></td>
+<td class="text-align:left"><p>DA sessions not on a certain group (e.g. domain controllers).</p></td>
+<td class="text-align:left"><p>Ryan Hausknecht (&#64;haus3c)</p></td>
+<td class="text-align:left"><p><code class="docutils literal notranslate"><span class="pre">OPTIONAL</span> <span class="pre">MATCH</span> <span class="pre">(c:Computer)-[:MemberOf]-&gt;(t:Group)</span> <span class="pre">WHERE</span> <span class="pre">NOT</span> <span class="pre">t.name</span> <span class="pre">=</span> <span class="pre">'DOMAIN</span> <span class="pre">CONTROLLERS&#64;CONTOSO.LOCAL'</span> <span class="pre">WITH</span> <span class="pre">c</span> <span class="pre">as</span> <span class="pre">NonDC</span> <span class="pre">MATCH</span> <span class="pre">p=(NonDC)-[:HasSession]-&gt;(n:User)-[:MemberOf]-&gt;(g:Group</span> <span class="pre">{name:'DOMAIN</span> <span class="pre">ADMINS&#64;CONTOSO.LOCAL'})</span> <span class="pre">RETURN</span> <span class="pre">DISTINCT</span> <span class="pre">(n.name)</span> <span class="pre">as</span> <span class="pre">Username,</span> <span class="pre">COUNT(DISTINCT(NonDC))</span> <span class="pre">as</span> <span class="pre">Connexions</span> <span class="pre">ORDER</span> <span class="pre">BY</span> <span class="pre">COUNT(DISTINCT(NonDC))</span> <span class="pre">DESC</span>&#160;&#160; </code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "OTRF/bloodhound-notebook",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "notebooks/cypher"
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../../intro.html" title="previous page">BloodHound Notebook Project</a>
+    <a class='right-next' id="next-link" href="queries_notebook.html" title="next page">Queries Notebook</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    
+  </body>
+</html>
