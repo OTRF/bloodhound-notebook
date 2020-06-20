@@ -84,10 +84,10 @@
 <p class="margin-caption">Cypher Community</p>
 </li>
   <li class="">
-    <a href="../cypher/queries_table.html">Cypher Queries Table</a>
+    <a href="../cypher/queries_table.html">Summary Table</a>
   </li>
   <li class="">
-    <a href="../cypher/queries_notebook.html">Cypher Queries Notebook</a>
+    <a href="../cypher/queries_notebook.html">Queries Notebook</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Other Notebooks</p>
@@ -226,12 +226,6 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">py2neo</span> <span class="kn">import</span> <span class="n">Graph</span>
 <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
 <span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
-<span class="n">alt</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">enable</span><span class="p">(</span><span class="s1">&#39;notebook&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>RendererRegistry.enable(&#39;notebook&#39;)
 </pre></div>
 </div>
 </div>
@@ -247,7 +241,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Graph database=&lt;Database uri=&#39;bolt://206.189.85.93:7687&#39; secure=False user_agent=&#39;py2neo/4.3.0 neobolt/1.7.15 Python/3.7.3-final-0 (linux)&#39;&gt; name=&#39;data&#39;&gt;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Graph database=&lt;Database uri=&#39;bolt://localhost:7687&#39; secure=False user_agent=&#39;py2neo/4.3.0 neobolt/1.7.17 Python/3.7.3-final-0 (linux)&#39;&gt; name=&#39;data&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -304,41 +298,11 @@
     <tr>
       <th>0</th>
       <td>DOMAIN ADMINS@CONTOSO.LOCAL</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>DESKTOPADMINS@CONTOSO.LOCAL</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>DOMAIN ADMINS@CONTOSO.LOCAL</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>MACHINEADMINS@CONTOSO.LOCAL</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>ENTERPRISE ADMINS@CONTOSO.LOCAL</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>DOMAIN ADMINS@CONTOSO.LOCAL</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>ENTERPRISE ADMINS@CONTOSO.LOCAL</td>
       <td>1</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>WORKSTATIONADMINS@CONTOSO.LOCAL</td>
+      <th>1</th>
+      <td>DOMAIN USERS@CONTOSO.LOCAL</td>
       <td>1</td>
     </tr>
   </tbody>
@@ -374,8 +338,56 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/altair_bloodhound_results_10_0.png" src="../../_images/altair_bloodhound_results_10_0.png" />
-</div>
+<div class="output text_html">
+<div id="altair-viz-929104154ecd4f4781f03b2e29f6f43e"></div>
+<script type="text/javascript">
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-929104154ecd4f4781f03b2e29f6f43e") {
+      outputDiv = document.getElementById("altair-viz-929104154ecd4f4781f03b2e29f6f43e");
+    }
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.8.1?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
+    };
+
+    function loadScript(lib) {
+      return new Promise(function(resolve, reject) {
+        var s = document.createElement('script');
+        s.src = paths[lib];
+        s.async = true;
+        s.onload = () => resolve(paths[lib]);
+        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+        document.getElementsByTagName("head")[0].appendChild(s);
+      });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else if (typeof vegaEmbed === "function") {
+      displayChart(vegaEmbed);
+    } else {
+      loadScript("vega")
+        .then(() => loadScript("vega-lite"))
+        .then(() => loadScript("vega-embed"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "bar", "encoding": {"x": {"type": "quantitative", "field": "AdminRightCount"}, "y": {"type": "nominal", "field": "GroupName", "sort": {"field": "AdminRightCount", "order": "descending"}}}, "title": "Most Privileged Active Directory Security Groups"}, {"mark": {"type": "text", "align": "left", "baseline": "middle", "dx": 3}, "encoding": {"text": {"type": "quantitative", "field": "AdminRightCount"}, "x": {"type": "quantitative", "field": "AdminRightCount"}, "y": {"type": "nominal", "field": "GroupName", "sort": {"field": "AdminRightCount", "order": "descending"}}}, "title": "Most Privileged Active Directory Security Groups"}], "data": {"name": "data-d46491a48213719aa2ef8eee9ff26721"}, "height": 300, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json", "datasets": {"data-d46491a48213719aa2ef8eee9ff26721": [{"GroupName": "DOMAIN ADMINS@CONTOSO.LOCAL", "AdminRightCount": 1}, {"GroupName": "DOMAIN USERS@CONTOSO.LOCAL", "AdminRightCount": 1}]}}, {"mode": "vega-lite"});
+</script></div></div>
 </div>
 </div>
 <div class="section" id="id1">
@@ -423,7 +435,7 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>13.580247</td>
+      <td>93.939394</td>
     </tr>
   </tbody>
 </table>
@@ -437,7 +449,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>13.580246913580247
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>93.93939393939394
 </pre></div>
 </div>
 </div>
@@ -481,20 +493,20 @@
 </div><div class="output text_html"><div>
 
 
-            <div id="c4574d71-54fe-4df8-a58c-e833fe5959d8" class="plotly-graph-div" style="height:525px; width:100%;"></div>
+            <div id="57013aeb-9e7a-4048-94cc-8a1bb6d0edca" class="plotly-graph-div" style="height:525px; width:100%;"></div>
             <script type="text/javascript">
                 require(["plotly"], function(Plotly) {
                     window.PLOTLYENV=window.PLOTLYENV || {};
 
-                if (document.getElementById("c4574d71-54fe-4df8-a58c-e833fe5959d8")) {
+                if (document.getElementById("57013aeb-9e7a-4048-94cc-8a1bb6d0edca")) {
                     Plotly.newPlot(
-                        'c4574d71-54fe-4df8-a58c-e833fe5959d8',
-                        [{"domain": {"x": [0, 1], "y": [0, 1]}, "gauge": {"axis": {"range": [null, 100]}, "steps": [{"color": "lightgray", "range": [0, 250]}], "threshold": {"line": {"color": "red", "width": 4}, "thickness": 0.75, "value": 490}}, "mode": "gauge+number", "title": {"text": "Percentage of Users with a Path to Domain Admin"}, "type": "indicator", "value": 13.580246913580247}],
+                        '57013aeb-9e7a-4048-94cc-8a1bb6d0edca',
+                        [{"domain": {"x": [0, 1], "y": [0, 1]}, "gauge": {"axis": {"range": [null, 100]}, "steps": [{"color": "lightgray", "range": [0, 250]}], "threshold": {"line": {"color": "red", "width": 4}, "thickness": 0.75, "value": 490}}, "mode": "gauge+number", "title": {"text": "Percentage of Users with a Path to Domain Admin"}, "type": "indicator", "value": 93.93939393939394}],
                         {"template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}},
                         {"responsive": true}
                     ).then(function(){
 
-var gd = document.getElementById('c4574d71-54fe-4df8-a58c-e833fe5959d8');
+var gd = document.getElementById('57013aeb-9e7a-4048-94cc-8a1bb6d0edca');
 var x = new MutationObserver(function (mutations, observer) {{
         var display = window.getComputedStyle(gd).display;
         if (!display || display === 'none') {{

@@ -38,7 +38,7 @@ We can limit our results and return only Kereberoastable users with paths to DA.
 
 krb_users_path_to_DA = g.run("""
 MATCH (u:User {hasspn:true})
-MATCH (g:Group {name:'DOMAIN ADMINS@JAPAN.LOCAL'})
+MATCH (g:Group {name:'DOMAIN ADMINS@CONTOSO.LOCAL'})
 MATCH p = shortestPath(
   (u)-[*1..]->(g)
 )
@@ -63,4 +63,6 @@ ORDER BY COUNT(DISTINCT(comps)) DESC
 """).to_data_frame()
 
 privileged_kerberoastable_users
+
+
 

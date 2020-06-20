@@ -11,7 +11,6 @@
 from py2neo import Graph
 import plotly.graph_objects as go
 import altair as alt
-alt.renderers.enable('notebook')
 
 ## Initialize BloodHound neo4j Database Connection
 
