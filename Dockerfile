@@ -48,11 +48,12 @@ RUN python3 -m pip install --upgrade pip \
   && python3 -m pip install py2neo==4.3.0 plotly==4.3.0 altair==4.1.0 ipywidgets==7.5.1
 
 COPY scripts/conf/neo4j.conf /var/lib/neo4j/conf/neo4j.conf
-COPY notebooks ${HOME}/notebooks
+COPY docs/notebooks ${HOME}/notebooks
 
 ENV PATH ${NEO4J_HOME}/bin:$PATH
 
 EXPOSE 7474 7473 7687
 
+WORKDIR ${HOME}
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 CMD ["/opt/jupyter/scripts/jupyter-cmd.sh"]
