@@ -85,10 +85,10 @@
 <p class="margin-caption">Cypher Community</p>
 </li>
   <li class="">
-    <a href="../cypher/queries_table.html">Cypher Queries Table</a>
+    <a href="../cypher/queries_table.html">Summary Table</a>
   </li>
   <li class="">
-    <a href="../cypher/queries_notebook.html">Cypher Queries Notebook</a>
+    <a href="../cypher/queries_notebook.html">Queries Notebook</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Other Notebooks</p>
@@ -240,6 +240,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Graph database=&lt;Database uri=&#39;bolt://localhost:7687&#39; secure=False user_agent=&#39;py2neo/4.3.0 neobolt/1.7.17 Python/3.7.3-final-0 (linux)&#39;&gt; name=&#39;data&#39;&gt;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -282,7 +287,7 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>6</td>
+      <td>2</td>
     </tr>
   </tbody>
 </table>
@@ -322,27 +327,11 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>SQLSVC@TOKYO.JAPAN.LOCAL</td>
+      <td>KRBTGT@CONTOSO.LOCAL</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>SCANSERVICE@TOKYO.JAPAN.LOCAL</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>KRBTGT@JAPAN.LOCAL</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>BACKUPLDAP@TOKYO.JAPAN.LOCAL</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>KRBTGT@TOKYO.JAPAN.LOCAL</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>KRBTGT@SINGAPORE.LOCAL</td>
+      <td>SQL2014@CONTOSO.LOCAL</td>
     </tr>
   </tbody>
 </table>
@@ -356,7 +345,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">krb_users_path_to_DA</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">MATCH (u:User {hasspn:true})</span>
-<span class="s2">MATCH (g:Group {name:&#39;DOMAIN ADMINS@JAPAN.LOCAL&#39;})</span>
+<span class="s2">MATCH (g:Group {name:&#39;DOMAIN ADMINS@CONTOSO.LOCAL&#39;})</span>
 <span class="s2">MATCH p = shortestPath(</span>
 <span class="s2">  (u)-[*1..]-&gt;(g)</span>
 <span class="s2">)</span>
@@ -399,13 +388,13 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>SQLSVC@TOKYO.JAPAN.LOCAL</td>
+      <td>KRBTGT@CONTOSO.LOCAL</td>
       <td>3</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>BACKUPLDAP@TOKYO.JAPAN.LOCAL</td>
-      <td>5</td>
+      <td>SQL2014@CONTOSO.LOCAL</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
@@ -462,7 +451,12 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>SQLSVC@TOKYO.JAPAN.LOCAL</td>
+      <td>KRBTGT@CONTOSO.LOCAL</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>SQL2014@CONTOSO.LOCAL</td>
       <td>1</td>
     </tr>
   </tbody>

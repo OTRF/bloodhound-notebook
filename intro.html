@@ -156,6 +156,10 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
+            <a href="#how-to-collaborate" class="nav-link">How To Collaborate</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
             <a href="#author" class="nav-link">Author</a>
         </li>
     
@@ -188,6 +192,29 @@
 <li><p>Capture Input (Cypher Queries) and Output(Results) for documentation/reports purposes</p></li>
 <li><p>Automate the execution of several queries in a practical and easy-to-reproduce way</p></li>
 <li><p>Allow the InfoSec community to run Cypher Queries interactively through a browser (Nothing installed locally) and for FREE</p></li>
+</ul>
+</div>
+<div class="section" id="how-to-collaborate">
+<h2>How To Collaborate<a class="headerlink" href="#how-to-collaborate" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>The InfoSec community benefits the more queries we share!</p></li>
+<li><p>Open a PR and share a query following a similar YAML file format:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">title</span><span class="p">:</span> <span class="n">Kerberoastable</span> <span class="n">Users</span>
+<span class="nb">id</span><span class="p">:</span> <span class="n">A272812C</span><span class="o">-</span><span class="mi">1</span><span class="n">FF8</span><span class="o">-</span><span class="mi">4</span><span class="n">D4D</span><span class="o">-</span><span class="n">B24A</span><span class="o">-</span><span class="mi">69</span><span class="n">F482CB1133</span>
+<span class="n">creation_date</span><span class="p">:</span> <span class="mi">2020</span><span class="o">/</span><span class="mi">06</span><span class="o">/</span><span class="mi">20</span>
+<span class="n">author</span><span class="p">:</span> <span class="n">Ryan</span> <span class="n">Hausknecht</span> <span class="p">(</span><span class="nd">@haus3c</span><span class="p">)</span>
+<span class="n">description</span><span class="p">:</span> <span class="n">Find</span> <span class="n">All</span> <span class="n">Users</span> <span class="k">with</span> <span class="n">an</span> <span class="n">SPN</span><span class="o">/</span><span class="n">Find</span> <span class="nb">all</span> <span class="n">Kerberoastable</span> <span class="n">Users</span>
+<span class="n">references</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">hausec</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="mi">2019</span><span class="o">/</span><span class="mi">09</span><span class="o">/</span><span class="mi">09</span><span class="o">/</span><span class="n">bloodhound</span><span class="o">-</span><span class="n">cypher</span><span class="o">-</span><span class="n">cheatsheet</span><span class="o">/</span>
+<span class="n">query</span><span class="p">:</span> <span class="o">|-</span>
+  <span class="n">MATCH</span> <span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="n">User</span><span class="p">)</span><span class="n">WHERE</span> <span class="n">n</span><span class="o">.</span><span class="n">hasspn</span><span class="o">=</span><span class="n">true</span>
+  <span class="n">RETURN</span> <span class="n">n</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Save that query in the <a class="reference external" href="https://github.com/OTRF/bloodhound-notebook/tree/master/queries">queries</a> folder.</p></li>
+<li><p>The following <a class="reference external" href="https://github.com/OTRF/bloodhound-notebook/blob/master/scripts/createCommunityNotebook.py">script</a> then is run after the PR is approved to update all the docs and community notebook.</p></li>
 </ul>
 </div>
 <div class="section" id="author">
