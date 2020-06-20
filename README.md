@@ -1,8 +1,12 @@
 # BloodHound Notebook Project
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/OTRF/bloodhound-notebook/master)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+![Open_Threat_Research Community](https://img.shields.io/badge/Open_Threat_Research-Community-brightgreen.svg)
 
 BloodHound Cypher Queries Ported to a Jupyter Notebook. A community-driven effort to document and share cypher queries via Jupyter Notebooks.
+
+## Jupyter Book: [https://bloodhoundnotebook.com](https://bloodhoundnotebook.com)
 
 ## Use Cases:
 

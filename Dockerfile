@@ -48,7 +48,7 @@ RUN python3 -m pip install --upgrade pip \
   && python3 -m pip install --upgrade py2neo==4.3.0 plotly==4.3.0 altair==4.1.0 vega ipywidgets==7.5.1
 
 COPY scripts/conf/neo4j.conf /var/lib/neo4j/conf/neo4j.conf
-COPY docs/notebooks ${HOME}/notebooks
+COPY docs/notebooks ${HOME}/docs
 
 ENV PATH ${NEO4J_HOME}/bin:$PATH
 
